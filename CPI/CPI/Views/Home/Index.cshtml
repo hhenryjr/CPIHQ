@@ -2,30 +2,198 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<head>
+    <title>Personality</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <style type="text/css">
+        body, html {
+            font-family: "Open Sans";
+        }
+
+        .well {
+            background-color: white;
+            border: none;
+        }
+    </style>
+</head>
+<div data-ng-controller="resultsController as results">
+
+    <div class="container">
+        <form class="form-signin">
+            <h2 class="form-signin-heading">Twitter Personality</h2>
+            <label class="sr-only" for="inputEmail"></label>
+            <input type="text" autofocus="" required="" placeholder="Twitter Handle" class="form-control" id="twitter">
+
+            <br />
+
+            <button id="handle" class="btn btn-info btn-block " ng-click="results.sendHandle()">CHECK</button>
+        </form>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <br />
+    <div class="container">
+        <img src="http://cdn2.business2community.com/wp-content/uploads/2011/08/twitter-icon-sketch.jpg" alt="twitter" style="width:200px;height:200px;" />
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+
+
+
+
+
+
+    <div class="row model_personality" id="personality-template" style="margin-top:50px;">
+        <div class="tname col-xs-6 col-md-2 text-right">
+            <span ng-if="results.personality.children"><strong>Name</strong></span>
+
+            <div data-ng-repeat="personality in results.personality.children[0].children[0].children">
+                <span>{{personality.name}}</span>
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="tvalue col-xs-6 col-md-1">
+            <span ng-if="results.personality.children"><strong>Value</strong></span>
+
+            <div data-ng-repeat="personality in results.personality.children[0].children[0].children">
+                <span>{{personality.percentage * 100 | number:0}}%</span>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="col-xs-12 col-md-9">
+            <div id="vizcontainer" class="well"></div>
+        </div>
+
+
     </div>
 </div>
+    @section Scripts{
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+
+    <script src="~/scripts/sabio.js"></script>
+    <script src="~/scripts/sabio.service.personality.js"></script>
+    <script src="~/scripts/ng/angular.js"></script>
+    <script src="~/scripts/sabio.ng.app.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="~/scripts/demo.js"></script>
+    <script src="~/scripts/personality.js"></script>
+    <script src="~/scripts/i18n.js"></script>
+
+    <script>
+
+
+        sabio.services.personalityFactory = function ($baseService) {
+            var aSabioServiceObject = sabio.services.personality;
+            var newService = $baseService.merge(true, {}, aSabioServiceObject, $baseService);
+            return newService;
+        }
+
+        sabio.ng.addService(sabio.ng.app.module,
+                    "$personalityService",
+                    ["$baseService"],
+                    sabio.services.personalityFactory
+                );
+
+        sabio.page.resultsControllerFactory = function (
+            $scope  //  these three arguments are dependencies which are specified below and passed into the controller by ng
+            , $baseController
+            , $personalityService) {
+            console.log("test");
+            var vm = this;
+
+            $baseController.merge(vm, $baseController);
+            //  these properties will be used by the html directives to display data and let the user interact with data
+            //vm.items = null;
+            //vm.selectedEmployee = null;
+
+            //  save a reference to our service class so we can call it later on
+            vm.$personalityService = $personalityService;
+            vm.$scope = $scope;
+
+            vm.receiveItems = _receiveItems;
+            vm.personality = {};
+            vm.test = "test";
+            vm.sendHandle = _sendHandle;
+
+            vm.notify = vm.$personalityService.getNotifier($scope);
+
+            render();
+
+            function render() {
+                //vm.$personalityService.sendHandler("luisriv84", vm.receiveItems);
+            }
+
+            function _receiveItems(data) {
+                vm.notify(function () {
+                    vm.personality = data.tree;
+                    console.log(data);
+                    showVizualization(data);
+                });
+
+            }
+
+
+
+
+
+              //  $('#handle').on('click', sabio.page.handlers.sendHandle);
+
+            function _sendHandle() {
+                console.log("button clicked");
+                var url = $('#twitter').val();
+                sabio.services.personality.sendHandler(url, vm.receiveItems, sabio.page.onSendHandlerError)
+            }
+
+
+            sabio.page.handlers.sendHandle = function (evt) {
+                evt.preventDefault();
+                var url = $('#twitter').val();
+                sabio.services.personality.sendHandler(url, vm.receiveItems, sabio.page.onSendHandlerError)
+            }
+
+            sabio.page.onSendHandlerSuccess = function (data) {
+
+                console.log(data);
+
+            }
+
+            sabio.page.onSendHandlerError = function (jqXhr, error) {
+
+                console.log(error);
+
+            }
+
+
+
+
+
+        }
+
+        sabio.ng.addController(sabio.ng.app.module
+        , "resultsController"
+        , ['$scope', '$baseController', "$personalityService"] //  here we pass in $personalityService which was created in the previous step
+        , sabio.page.resultsControllerFactory)
+
+
+
+    </script>
+        }
+
