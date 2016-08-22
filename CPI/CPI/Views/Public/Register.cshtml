@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_simpleLayout.cshtml";
+}
 
 <link href="http://lms.dev/Content/toastr.css" rel="stylesheet" />
 <img id="picture" ng-src="" alt="Login Full Background" class="full-bg animation-pulseSlow">
@@ -11,7 +13,7 @@
     <div id="login-container" class="animation-fadeIn">
         <!-- Login Title -->
         <div class="login-title text-center">
-            <h1><strong><img src="http://2.bp.blogspot.com/-CYonRunOdeg/UcYsi3yyoUI/AAAAAAAAAFk/MUPbzj3fphg/s1600/Sabio.gif" height="30" width="30"> Sabio.la</strong><br><small>Please <strong>Login</strong> or <strong>Register</strong></small></h1>
+            <h1><strong>Welcome to CPI!</strong><br><small>Please <strong>Login</strong> or <strong>Register</strong></small></h1>
 
         </div>
         <!-- END Login Title -->
@@ -117,7 +119,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
-                        <small>Do you have an account?</small> <a href="http://lms.dev/login" id="link-register"><small>Login</small></a>
+                        <small>Do you have an account?</small> <a href="http://localhost:59775/public/login" id="link-register"><small>Login</small></a>
                     </div>
                 </div>
             </form>
@@ -153,11 +155,11 @@
 
 @section Scripts {
 
-    <script src="/scripts/toastr.js"></script>
-    <script src="/scripts/app/services/alertService.js"></script>
-    <script src="/scripts/sabio.services.registration.js"></script>
-    <script src="/scripts/sabio.services.messaging.js"></script>
-    <script src="/scripts/sabio.services.userTokens.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/app/services/alertService.js"></script>
+    <script src="~/Scripts/sabio.services.registration.js"></script>
+    <script src="~/Scripts/sabio.services.messaging.js"></script>
+    <script src="~/Scripts/sabio.services.userTokens.js"></script>
     <script type="text/javascript">
         sabio.page.startUp = function () {
             sabio.page.userController = sabio.ng.getControllerInstance($("#registrationCtrl"));

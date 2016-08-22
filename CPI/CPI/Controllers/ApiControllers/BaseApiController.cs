@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Sabio.Web.Controllers.Api
+namespace CPI.ApiControllers
 {
     public class BaseApiController : ApiController
     {

@@ -1,13 +1,13 @@
 ﻿//using System.Web.Mvc;
-//using dotnetCloudantWebstarter.Models.ViewModels;
-//using dotnetCloudantWebstarter.Classes;
-//using dotnetCloudantWebstarter.Services;
-//using dotnetCloudantWebstarter.Domain;
-//using dotnetCloudantWebstarter.Services.Interfaces;
+//using CPI.Models.ViewModels;
+//using CPI.Classes;
+//using CPI.Services;
+//using CPI.Domain;
+//using CPI.Services.Interfaces;
 //using Microsoft.Practices.Unity;
-using Microsoft.AspNet.Mvc;
+using System.Web.Mvc;
 
-namespace dotnetCloudantWebstarter.Controllers
+namespace CPI.Controllers
 {
     public abstract class BaseController : Controller
     {

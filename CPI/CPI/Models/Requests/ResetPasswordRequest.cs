@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 //using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
-using CPI.Models.Requests.ForgotPassword;
+using CPI.Models.Requests;
 
 namespace CPI.Models.Requests
 {

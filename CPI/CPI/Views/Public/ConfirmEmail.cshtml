@@ -1,4 +1,9 @@
-﻿
+﻿@model CPI.Models.ViewModels.ItemViewModel<Guid>
+
+@{
+    Layout = "~/Views/Shared/_simpleLayout.cshtml";
+}
+
 <!--[if (gte mso 9)|(IE)]>
 <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
   <tr>
@@ -7,7 +12,7 @@
 
 <img id="picture" src="" alt="Login Full Background" class="full-bg animation-pulseSlow">
 <div id="login-container" class="animation-fadeIn">
-    <input type="hidden" id="token" name="token" />
+    <input type="hidden" id="token" name="token" value="@Model.Item" />
     <input type="hidden" id="userName" name="userName" value="" />
     <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 600px;" class="content">
         <tr>
@@ -40,7 +45,7 @@
                         
                         <td align="center" height="50" style="background-color:#18537A; padding: 0 0 0 0; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" >
 
-                            <a id="confirm"  style="color: #e9ffff; text-align: center; text-decoration: none; margin: 0 20px 0 20px">Welcome to </a>
+                            <a id="confirm"  style="color: #e9ffff; text-align: center; text-decoration: none; margin: 0 20px 0 20px">Welcome to @Model.BrandName</a>
                         </td>
                     </tr>
                 </table>
@@ -67,9 +72,9 @@
 
 
 @section Scripts {
-    <script src="/scripts/sabio.services.userTokens.js"></script>
-    <script src="/scripts/jquery.validate.js"></script>
-    <script src="/scripts/sabio.services.confirmEmail.js"></script>
+    <script src="~/Scripts/sabio.services.userTokens.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/sabio.services.confirmEmail.js"></script>
     <script>
         sabio.page.startUp = function () {
             sabio.page.cycleThruBackgroundPic();

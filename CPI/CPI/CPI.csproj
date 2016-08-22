@@ -196,8 +196,17 @@
     <Compile Include="Classes\PagedList.cs" />
     <Compile Include="Classes\SiteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiControllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\InputApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\MessageApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\PersonalityApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\TwitterApi.cs" />
+    <Compile Include="Controllers\ApiControllers\UsersApiController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DbController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PublicController.cs" />
     <Compile Include="Domain\NetUserDomain.cs" />
     <Compile Include="Domain\Token.cs" />
     <Compile Include="Domain\UserBase.cs" />
@@ -237,6 +246,7 @@
     <Compile Include="Services\MessagingService.cs" />
     <Compile Include="Services\PersonalityService.cs" />
     <Compile Include="Services\TwitterService.cs" />
+    <Compile Include="Services\UserDataService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserTokensService.cs" />
     <Compile Include="Startup.cs" />
@@ -2125,6 +2135,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_simpleLayout.cshtml" />
+    <Content Include="Views\Public\ConfirmEmail.cshtml" />
+    <Content Include="Views\Public\ForgotPassword.cshtml" />
+    <Content Include="Views\Public\Login.cshtml" />
+    <Content Include="Views\Public\Register.cshtml" />
+    <Content Include="Views\Public\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

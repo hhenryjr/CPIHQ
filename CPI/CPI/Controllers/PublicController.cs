@@ -1,19 +1,20 @@
-﻿using dotnetCloudantWebstarter.Models.ViewModels;
-using dotnetCloudantWebstarter.Services;
+﻿using CPI.Models.ViewModels;
+using CPI.Services;
 using System;
-using Microsoft.AspNet.Mvc;
+using System.Web.Http;
+using System.Web.Mvc;
 
-namespace dotnetCloudantWebstarter.Controllers
+namespace CPI.Controllers
 {
-    [AllowAnonymous]
+    [System.Web.Http.AllowAnonymous]
     public class PublicController : BaseController
     {
         //public PublicController(ISiteConfig config) : base(config)
         //{ }
 
         // GET: Public
-        [Route("~/Login")]
-        [Route("~/")]
+        [System.Web.Http.Route("~/Login")]
+        [System.Web.Http.Route("~/")]
         public ActionResult Login()
         {
             return View();
@@ -26,13 +27,13 @@ namespace dotnetCloudantWebstarter.Controllers
         //    return RedirectToAction("Index", "Home");
         //}
 
-        [Route("~/Register")]
+        [System.Web.Http.Route("~/Register")]
         public ActionResult Register()
         {
             return View();
         }
         
-        [Route("~/Confirm/{token:guid}")]
+        [System.Web.Http.Route("~/Confirm/{token:guid}")]
         public ActionResult ConfirmEmail(Guid token)
         {
             ItemViewModel<Guid> model = new ItemViewModel<Guid>();
@@ -40,13 +41,13 @@ namespace dotnetCloudantWebstarter.Controllers
             return View(model);
         }
 
-        [Route("~/ForgotPassword")]
+        [System.Web.Http.Route("~/ForgotPassword")]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
-        [Route("~/ResetPassword/{token:guid}")]
+        [System.Web.Http.Route("~/ResetPassword/{token:guid}")]
         public ActionResult ResetPassword(Guid token)
         {
             return View(token);

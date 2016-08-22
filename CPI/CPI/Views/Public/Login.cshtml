@@ -1,104 +1,130 @@
-﻿<!DOCTYPE html>
-<html>
-<body data-ng-app="sabioApp">
-    <div data-ng-controller="$LoginController as login" id="LogInController" class="animation-fadeIn">
-        @*<img id="picture" ng-src="" alt="Login Background" class="full-bg animation-pulseSlow">*@
-        <div id="login-container" class="animation-fadeIn">
-            <div class="login-title text-center">
-                <h1> <small>Please <strong>Login</strong> or <strong>Register</strong></small></h1>
-            </div>
+﻿@{
+    Layout = "~/Views/Shared/_simpleLayout.cshtml";
+}
 
-            <div class="block push-bit">
+<link href="http://lms.dev/Content/toastr.css" rel="stylesheet" />
 
-                <form id="loginForm" data-ng-submit="login.onLoginFormValidate()" name="login.loginForm" class="form-horizontal form-bordered form-control-borderless" novalidate>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                                <input type="text"
-                                       id="login-email"
-                                       name="username"
-                                       ng-model="login.myData.username"
-                                       class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.username.$valid}"
-                                       required
-                                       ng-required="true"
-                                       placeholder="UserName">
-                                <div role="alert" class="help-inline error" style="color:red">
-                                    <span class="error has-error" ng-show="login.showLoginFormErrors && login.loginForm.username.$error.required">Please enter your UserName</span>
-                                </div>
+<div data-ng-controller="$LoginController as login" id="LogInController" class="animation-fadeIn">
+    <img id="picture" ng-src="" alt="Login Background" class="full-bg animation-pulseSlow">
+    <div id="login-container" class="animation-fadeIn">
+        <div class="login-title text-center">
+            <h1><small>Please <strong>Login</strong> or <strong>Register</strong></small></h1>
+        </div>
 
+        <div class="block push-bit">
+
+            <form id="loginForm" data-ng-submit="login.onLoginFormValidate()" name="login.loginForm" class="form-horizontal form-bordered form-control-borderless" novalidate>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                            <input type="text"
+                                   id="login-email"
+                                   name="username"
+                                   ng-model="login.myData.username"
+                                   class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.username.$valid}"
+                                   required
+                                   ng-required="true"
+                                   placeholder="UserName">
+                            <div role="alert" class="help-inline error" style="color:red">
+                                <span class="error has-error" ng-show="login.showLoginFormErrors && login.loginForm.username.$error.required">Please enter your UserName</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                            <input type="password"
+                                   id="login-password"
+                                   ng-model="login.myData.Password"
+                                   name="Password"
+                                   class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.Password.$valid}"
+                                   required
+                                   ng-required="true"
+                                   placeholder="Password">
+                            <div role="alert" class="help-inline error">
+                                <span class="error has-error" ng-show="login.showLoginFormErrors && login.loginForm.Password.$error.required">Please enter your Password</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
-                                <input type="password"
-                                       id="login-password"
-                                       ng-model="login.myData.Password"
-                                       name="Password"
-                                       class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.Password.$valid}"
-                                       required
-                                       ng-required="true"
-                                       placeholder="Password">
-                                <div role="alert" class="help-inline error" style="color:red">
-                                    <span class="error has-error" ng-show="login.showLoginFormErrors && login.loginForm.Password.$error.required">Please enter your Password</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="form-group form-actions">
+
+                    <div class="col-xs-4">
+                        <label class="switch switch-primary" data-toggle="tooltip" title="Remember Me?">
+                            <input type="checkbox"
+                                   id="login-remember-me"
+                                   name="login-remember-me" checked>
+                            <span></span>
+                        </label>
+                        <label >
+                            Remember Me
+                        </label>
                     </div>
 
-                    <div class="form-group form-actions">
-
-                        <div class="col-xs-4">
-                            <label class="switch switch-primary" data-toggle="tooltip" title="Remember Me?">
-                                <input type="checkbox"
-                                       id="login-remember-me"
-                                       name="login-remember-me" checked>
-                                <span></span>
-                            </label>
-                            <label>
-                                Remember Me
-                            </label>
-                        </div>
-
-                        <div class="col-xs-8 text-right">
-                            <button type="submit" class="btn btn-sm btn-primary" id="cmdLogin"><i class="fa fa-angle-right"></i> Login</button>
-                        </div>
+                    <div class="col-xs-8 text-right">
+                        <button type="submit" class="btn btn-sm btn-primary" id="cmdLogin"><i class="fa fa-angle-right"></i> Login into CPI</button>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <div class="col-xs-12 text-center">
-                            <a href="http://lms.dev/forgotpassword" id="forgotPassword"><small>Forgot password?</small></a> -
-                            <a href="http://lms.dev/register" id="register"><small>Create a new account</small></a>
-                        </div>
+                <div class="form-group">
+                    <div class="col-xs-12 text-center">
+                        <a href="http://localhost:59775/public/forgotpassword" id="forgotPassword"><small>Forgot password?</small></a> -
+                        <a href="http://localhost:59775/public/register" id="register"><small>Create a new account</small></a>
                     </div>
+                </div>
 
-                </form>
-                <div class="alert" id="msgWindow"></div>
-
-            </div>
+            </form>
+            <div class="alert" id="msgWindow"></div>
 
         </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
-    <script src="/scripts/sabio.js"></script>
-    <script src="/scripts/ng/angular.js"></script>
-    <script src="/scripts/sabio.ng.app.js"></script>
+    </div>
+</div>
+
+@*<div id="modal-terms" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Terms &amp; Conditions</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Title</h4>
+                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h4>Title</h4>
+                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h4>Title</h4>
+                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@section Scripts{
+
+
+    <script src="~/Scripts/sabio.services.forgotPassword.js"></script>
 
     <!-- Load and execute javascript code used only in this page -->
-    <script src="/scripts/sabio.services.forgotPassword.js"></script>
-    <script src="/scripts/sabio.services.login.js"></script>
-    <script src="/scripts/sabio.services.userTokens.js"></script>
-    <script scr="/scripts/sabio.services.messages.js"></script>
-    @*<script src="/scripts/jquery.validate.js"></script>
-        <script src="/js/pages/login.js"></script>
-        <script>$(function () { Login.init(); });</script>*@
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/sabio.services.login.js"></script>
+    <script src="~/Scripts/app/services/alertService.js"></script>
+    <script src="~/Scripts/sabio.services.userTokens.js"></script>
+    <script scr="~/Scripts/sabio.services.messages.js"></script>
+@*<script src="~/Scripts/jquery.validate.js"></script>
+    <script src="/js/pages/login.js"></script>
+    <script>$(function () { Login.init(); });</script>*@
 
     <script type="text/javascript">
 
@@ -142,7 +168,7 @@
             render();
             function render() {
                 vm.settings();
-                //vm.cycleThruBackgroundPic();
+                vm.cycleThruBackgroundPic();
             };
 
             function _cycleThruBackgroundPic() {
@@ -217,12 +243,12 @@
 
         sabio.ng.addController(sabio.ng.app.module
             , "$LoginController"
-            , ['$scope', '$baseController', "$LoginService"]
+            , ['$scope', '$baseController', "$LoginService", "$alertService"]
             , sabio.page.LoginControllerFactory);
 
 
     </script>
-</body>
-</html>
+}
+
 
 

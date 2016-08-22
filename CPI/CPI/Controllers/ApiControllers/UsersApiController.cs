@@ -4,123 +4,118 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Amazon.S3.Util;
 using Glimpse.Core.Extensions;
-using Sabio.Web.Domain;
-using Sabio.Web.Models.Requests;
-using Sabio.Web.Models.Requests.UsersData;
-using Sabio.Web.Models.Responses;
-using Sabio.Web.Services;
-using Sabio.Web.Models.Requests.Login;
+using CPI.Domain;
+using CPI.Models.Requests;
+using CPI.Models.Requests.UsersData;
+using CPI.Models.Responses;
+using CPI.Services;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Sabio.Web.Exceptions;
-using Sabio.Web.Models.Requests.UserTokens;
-using Sabio.Web.Models;
-using Sabio.Web.Models.Requests.ForgotPassword;
+using CPI.Exceptions;
+using CPI.Models.Requests.UserTokens;
+using CPI.Models;
 using System.Threading.Tasks;
-using Sabio.Web.Models.Requests.UserSettings;
-using Sabio.Web.Services.Interfaces;
 
-namespace Sabio.Web.Controllers.Api
+namespace CPI.ApiControllers
 {
     [AllowAnonymous]
     [RoutePrefix("api/user")]
     public class UsersApiController : ApiController
     {
-        private IUserDataService _userDataService;
-        private IAttendanceService _attendanceService;
-        private IMessagingService _messagingService;
+        //private IUserDataService UserDataService;
+        //private IAttendanceService _attendanceService;
+        //private IMessagingService _messagingService;
 
-        public UsersApiController(IUserDataService UserDataService, IAttendanceService AttendanceService, IMessagingService messagingService)
-        {
-            _userDataService = UserDataService;
-            _attendanceService = AttendanceService;
-            _messagingService = messagingService;
-        }
+        //public UsersApiController(IUserDataService UserDataService, IAttendanceService AttendanceService, IMessagingService messagingService)
+        //{
+        //    UserDataService = UserDataService;
+        //    _attendanceService = AttendanceService;
+        //    _messagingService = messagingService;
+        //}
 
         // GET: api/UsersData
-        [Route("Profile/{id:int}"), HttpGet]
-        public HttpResponseMessage GetUser(int id)
-        {
-            ItemResponse<UserInfo> response = new ItemResponse<UserInfo>();
+        //[Route("Profile/{id:int}"), HttpGet]
+        //public HttpResponseMessage GetUser(int id)
+        //{
+        //    ItemResponse<UserInfo> response = new ItemResponse<UserInfo>();
 
-            response.Item = _userDataService.Get(id);
-            return Request.CreateResponse(response);
-        }
+        //    response.Item = UserDataService.Get(id);
+        //    return Request.CreateResponse(response);
+        //}
 
-        [Route("Profile"), HttpGet]
-        public HttpResponseMessage GetsUser()
-        {
-            ItemResponse<UserInfo> response = new ItemResponse<UserInfo>();
-            string UserId = UserService.GetCurrentUserId();
-            response.Item = _userDataService.GetByUserId(UserId);
-            return Request.CreateResponse(response);
-        }
+        //[Route("Profile"), HttpGet]
+        //public HttpResponseMessage GetsUser()
+        //{
+        //    ItemResponse<UserInfo> response = new ItemResponse<UserInfo>();
+        //    string UserId = UserService.GetCurrentUserId();
+        //    response.Item = UserDataService.GetByUserId(UserId);
+        //    return Request.CreateResponse(response);
+        //}
 
-        [Route("Profile"), HttpPost]
-        public HttpResponseMessage AddUserData(UserInfoAddRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
+        //[Route("Profile"), HttpPost]
+        //public HttpResponseMessage AddUserData(UserInfoAddRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //    }
 
-            ItemResponse<int> response = new ItemResponse<int>();
-            string userId = UserService.GetCurrentUserId();
-            response.Item = _userDataService.Insert(model, userId);
+        //    ItemResponse<int> response = new ItemResponse<int>();
+        //    string userId = UserService.GetCurrentUserId();
+        //    response.Item = UserDataService.Insert(model, userId);
 
-            return Request.CreateResponse(response);
-        }
+        //    return Request.CreateResponse(response);
+        //}
 
-        [Route("profile/{id:int}"), HttpPut]
-        public HttpResponseMessage EditUserInfo(UserInfoUpdate model, int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
+        //[Route("profile/{id:int}"), HttpPut]
+        //public HttpResponseMessage EditUserInfo(UserInfoUpdate model, int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //    }
 
-            SucessResponse response = new SucessResponse();
+        //    SucessResponse response = new SucessResponse();
 
-            _userDataService.Update(model);
+        //    UserDataService.Update(model);
 
-            return Request.CreateResponse(response);
+        //    return Request.CreateResponse(response);
 
-        }
+        //}
 
-        [Route("profile"), HttpDelete]
-        public HttpResponseMessage DeletsUserInfo(UserInfoAddRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
-            return Request.CreateResponse(model);
+        //[Route("profile"), HttpDelete]
+        //public HttpResponseMessage DeletsUserInfo(UserInfoAddRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //    }
+        //    return Request.CreateResponse(model);
 
-        }
+        //}
 
-        [Route("List"), HttpGet]
-        public HttpResponseMessage GetsUsers()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
+        //[Route("List"), HttpGet]
+        //public HttpResponseMessage GetsUsers()
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //    }
 
-            ItemsResponse<UserInfo> response = new ItemsResponse<UserInfo>();
+        //    ItemsResponse<UserInfo> response = new ItemsResponse<UserInfo>();
 
-            response.Items = _userDataService.GetsList();
+        //    response.Items = UserDataService.GetsList();
 
-            return Request.CreateResponse(response);
-        }
+        //    return Request.CreateResponse(response);
+        //}
 
-        [Route("Delete/{id:int}"), HttpDelete]
-        public HttpResponseMessage Delete(int id)
-        {
-            SucessResponse response = new SucessResponse();
-            _userDataService.Delete(id);
-            return Request.CreateResponse(response);
-        }
+        //[Route("Delete/{id:int}"), HttpDelete]
+        //public HttpResponseMessage Delete(int id)
+        //{
+        //    SucessResponse response = new SucessResponse();
+        //    UserDataService.Delete(id);
+        //    return Request.CreateResponse(response);
+        //}
 
         [Route("Login"), HttpPost]
         public HttpResponseMessage Login(LoginRequest model)
@@ -137,7 +132,7 @@ namespace Sabio.Web.Controllers.Api
 
             if (user != null)
             {
-                Boolean emailConfirmed = UserService.GetEmailConfirmed(model.UserName);
+                Boolean emailConfirmed = true;//UserService.GetEmailConfirmed(model.UserName);
 
                 if (emailConfirmed)
                 {
@@ -195,7 +190,7 @@ namespace Sabio.Web.Controllers.Api
                     request.Email = register.Email;
                     request.Token = tokensAddRequest.TokenId;
 
-                    Task t = _messagingService.SendConfirmationEmail(request);
+                    //Task t = MessagingService.SendConfirmationEmail(request);
                 }
                 else
                 {
@@ -289,7 +284,7 @@ namespace Sabio.Web.Controllers.Api
 
             // Attempt to set AspNetUsers.EmailConfirmed value = true and insert
             // new record in Users table
-            bool confirmSuccess = _userDataService.ConfirmEmail(tokenId);
+            bool confirmSuccess = true;//UserDataService.ConfirmEmail(tokenId);
             if (!confirmSuccess)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to confirm registration.");
@@ -324,7 +319,7 @@ namespace Sabio.Web.Controllers.Api
                 request.Email = user.Email;
                 request.Token = tokenId;
 
-                Task t = _messagingService.SendForgotPasswordEmail(request); //calling it to run
+                //Task t = MessagingService.SendForgotPasswordEmail(request); //calling it to run
             }
             else
             {
@@ -360,19 +355,19 @@ namespace Sabio.Web.Controllers.Api
 
         }
 
-        [Route, HttpPut]
-        public HttpResponseMessage UpdateSetting(UserSettingsRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
+        //[Route, HttpPut]
+        //public HttpResponseMessage UpdateSetting(UserSettingsRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //    }
 
-            SucessResponse response = new SucessResponse();
-            UserService.UpdateSettings(model);
-            return Request.CreateResponse(response);
+        //    SucessResponse response = new SucessResponse();
+        //    UserService.UpdateSettings(model);
+        //    return Request.CreateResponse(response);
 
-        }
+        //}
 
         //[Route("Settings"), HttpGet]
         //public HttpResponseMessage Get()
@@ -383,47 +378,47 @@ namespace Sabio.Web.Controllers.Api
         //    return Request.CreateResponse(response);
         //}
 
-        [Route("Attendance"), HttpPost]
-        public HttpResponseMessage Add(AttendanceAddRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
-            ItemResponse<Attendance> response = new ItemResponse<Attendance>();
-            string userId = UserService.GetCurrentUserId();
-            response.Item = _attendanceService.Add(model, userId);
+        //[Route("Attendance"), HttpPost]
+        //public HttpResponseMessage Add(AttendanceAddRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //    }
+        //    ItemResponse<Attendance> response = new ItemResponse<Attendance>();
+        //    string userId = UserService.GetCurrentUserId();
+        //    response.Item = _attendanceService.Add(model, userId);
 
-            return Request.CreateResponse(response);
-        }
+        //    return Request.CreateResponse(response);
+        //}
 
-        [Route("students"), HttpGet]
-        public HttpResponseMessage Gets()
-        {
+        //[Route("students"), HttpGet]
+        //public HttpResponseMessage Gets()
+        //{
 
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //    }
 
-            ItemsResponse<UserBase> response = new ItemsResponse<UserBase>();
-            response.Items = _userDataService.GetByRole();
-            return Request.CreateResponse(response);
-        }
+        //    ItemsResponse<UserBase> response = new ItemsResponse<UserBase>();
+        //    response.Items = UserDataService.GetByRole();
+        //    return Request.CreateResponse(response);
+        //}
 
-        [Route("onboardedList"), HttpGet]
-        public HttpResponseMessage GetOnboardedStudents()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
+        //[Route("onboardedList"), HttpGet]
+        //public HttpResponseMessage GetOnboardedStudents()
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        //    }
 
-            ItemsResponse<UserInfo> response = new ItemsResponse<UserInfo>();
+        //    ItemsResponse<UserInfo> response = new ItemsResponse<UserInfo>();
 
-            response.Items = _userDataService.GetOnboardedStudents();
+        //    response.Items = UserDataService.GetOnboardedStudents();
 
-            return Request.CreateResponse(response);
-        }
+        //    return Request.CreateResponse(response);
+        //}
     }
 }
