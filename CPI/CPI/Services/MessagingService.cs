@@ -5,21 +5,20 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
-using SendGrid;
+//using SendGrid;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Glimpse.AspNet.Tab;
-using Sabio.Web.Models.Requests;
-using Sabio.Web.Services.Interfaces;
+using CPI.Models.Requests;
 
-namespace Sabio.Web.Services
+namespace CPI.Services
 {
 
-    public class MessagingService : BaseService, IMessagingService
+    public class MessagingService : BaseService
     {
         private static readonly string _siteAdminEmailAddress = ConfigurationManager.AppSettings["SiteAdminEmailAddress"];
 
-        public async Task Mail(MailRequest model)
+        /*public async Task Mail(MailRequest model)
         {
             SendGridMessage myMessage = new SendGridMessage();
 
@@ -89,49 +88,6 @@ namespace Sabio.Web.Services
             await SendAsync(userEmailMessage); //syncs userEmailMessage
         }
 
-
-         public async Task SendAddOfficeHourEmail(string Email, OfficeHourAddRequest model)
-         {
-             string SubjectMessage = null;
-             string BodyMessage = null;
-
-             if (model is OfficeHourUpdateRequest) 
-             {
-                 SubjectMessage = "There is an update on the Question and Answer Session";
-                 BodyMessage = "Please be informed that there has been changes on the Question and Answer Session for " + model.Topic +
-                                        " , on " + model.Date + " from " + model.StartTime + " to " + model.EndTime +
-                                        ". Please check changes for " + model.Topic + ".";
-             }
-             else if (model is OfficeHourAddRequest)
-             {
-                 SubjectMessage = "A new Question and Answer Session has been scheduled";
-                 BodyMessage = "Please be informed that a new Question and Answer Session has been created for " + model.Topic +
-                                        " , on " + model.Date + " from " + model.StartTime + " to " + model.EndTime +
-                                        ". Please add your questions for " + model.Topic + ".";
-             } 
-
-             SendGridMessage myMessage = new SendGridMessage();
-             
-             myMessage.AddTo(Email);
-             myMessage.From = new MailAddress(_siteAdminEmailAddress, "Sabio Team");
-
-             myMessage.Subject = SubjectMessage;
-
-             string path = HttpContext.Current.Server.MapPath("~/Template/OfficeHourQuestionAndAnswerSession.html");
-             string contents = File.ReadAllText(path);
-
-             contents = contents.Replace("<%body%>", BodyMessage);
-
-             contents = contents.Replace("{{domain}}", "http://corbulo.biz/");
-
-             myMessage.Html = contents;
-
-             await SendAsync(myMessage);
-
-         }
-
-
-
         private async Task SendAsync(ISendGrid message)
         {
             var credentials = new NetworkCredential("Gregorio", "LosAngeles8!");
@@ -140,7 +96,7 @@ namespace Sabio.Web.Services
 
             await trasportToWeb.DeliverAsync(message);
 
-        }
+        }*/
 
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace dotnetCloudantWebstarter.Models.Responses
+namespace CPI.Models.Responses
 {
     /// <summary>
     /// This class simply sets IsSuccesFull to true by default.

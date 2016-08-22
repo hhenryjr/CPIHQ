@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace dotnetCloudantWebstarter.Models.Responses
+namespace CPI.Models.Responses
 {
     /// <summary>
     /// This is an example of a Generic class that you will gain an understanding off

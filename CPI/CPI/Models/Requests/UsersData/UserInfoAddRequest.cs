@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace dotnetCloudantWebstarter.Models.Requests.UsersData
+namespace CPI.Models.Requests.UsersData
 {
     public class UserInfoAddRequest 
     {

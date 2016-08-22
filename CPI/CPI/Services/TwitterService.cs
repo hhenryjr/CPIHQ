@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using System.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dotnetCloudantWebstarter.Services
+namespace CPI.Services
 {
     public class TwitterService
     {

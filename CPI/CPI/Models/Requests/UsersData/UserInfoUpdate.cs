@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace dotnetCloudantWebstarter.Models.Requests.UsersData
+namespace CPI.Models.Requests.UsersData
 {
     public class UserInfoUpdate : UserInfoAddRequest
     {

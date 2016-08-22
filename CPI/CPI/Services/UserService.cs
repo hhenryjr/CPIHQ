@@ -1,33 +1,29 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Sabio.Web.Models;
+using CPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
-using Sabio.Web.Exceptions;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 using System.Data.SqlClient;
-using Sabio.Data;
-using Sabio.Web.Models.Requests;
+using CPI.Models.Requests;
 using System.Data;
-using Sabio.Web.Domain;
-using Sabio.Web.Models.Requests.UserSettings;
-using Sabio.Web.Models.Requests.UsersData;
-using Sabio.Web.Services.Interfaces;
+using CPI.Domain;
+using CPI.Exceptions;
 
-namespace Sabio.Web.Services
+namespace CPI.Services
 {
     public class UserService : BaseService
     {
-        private IUserDataService _userDataService;
+        //private IUserDataService _userDataService;
 
-        public UserService(IUserDataService UserDataService)
-        {
-            _userDataService = UserDataService;
-        }
+        //public UserService(IUserDataService UserDataService)
+        //{
+        //    _userDataService = UserDataService;
+        //}
 
         public static ApplicationUserManager GetUserManager()
         {
@@ -102,28 +98,28 @@ namespace Sabio.Web.Services
         //    return result;
         //}
 
-        public static bool GetEmailConfirmed(string UserName)
-        {
-            bool result = false;
+        //public static bool GetEmailConfirmed(string UserName)
+        //{
+        //    bool result = false;
 
-            DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUsers_GetEmailConfirmedV2"
-               , inputParamMapper: delegate (SqlParameterCollection paramCollection)
-               {
-                   paramCollection.AddWithValue("@UserName", UserName);
+        //    DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUsers_GetEmailConfirmedV2"
+        //       , inputParamMapper: delegate (SqlParameterCollection paramCollection)
+        //       {
+        //           paramCollection.AddWithValue("@UserName", UserName);
 
-                   //model binding
-                   SqlParameter p = new SqlParameter("@EmailConfirmed", System.Data.SqlDbType.Bit);
-                   p.Direction = System.Data.ParameterDirection.Output;
+        //           //model binding
+        //           SqlParameter p = new SqlParameter("@EmailConfirmed", System.Data.SqlDbType.Bit);
+        //           p.Direction = System.Data.ParameterDirection.Output;
 
-                   paramCollection.Add(p);
+        //           paramCollection.Add(p);
 
-               }, returnParameters: delegate (SqlParameterCollection param)
-                {
-                    result = (bool)param["@EmailConfirmed"].Value;
-                }
-               );
-            return result;
-        }
+        //       }, returnParameters: delegate (SqlParameterCollection param)
+        //        {
+        //            result = (bool)param["@EmailConfirmed"].Value;
+        //        }
+        //       );
+        //    return result;
+        //}
 
         public static ApplicationUser GetUser(string username)
         {
@@ -252,112 +248,112 @@ namespace Sabio.Web.Services
             return !string.IsNullOrEmpty(GetCurrentUserId());
         }
 
-        public static List<UserSettings> GetSettings()
-        {
+        //public static List<UserSettings> GetSettings()
+        //{
 
-            List<UserSettings> list = null;
+        //    List<UserSettings> list = null;
 
-            var currentUserId = GetCurrentUserId();
-            if (!String.IsNullOrWhiteSpace(currentUserId))
-            {
-                DataProvider.ExecuteCmd(GetConnection, "dbo.UserSettingValues_SelectByUserId",
-                    inputParamMapper: delegate (SqlParameterCollection paramCollection)
-                    {
-                        paramCollection.AddWithValue("@UserId", GetCurrentUserId());
+        //    var currentUserId = GetCurrentUserId();
+        //    if (!String.IsNullOrWhiteSpace(currentUserId))
+        //    {
+        //        DataProvider.ExecuteCmd(GetConnection, "dbo.UserSettingValues_SelectByUserId",
+        //            inputParamMapper: delegate (SqlParameterCollection paramCollection)
+        //            {
+        //                paramCollection.AddWithValue("@UserId", GetCurrentUserId());
 
-                    }, map: delegate (IDataReader reader, short set)
-                    {
-                        UserSettings item = new UserSettings();
-                        int startingIndex = 0;
+        //            }, map: delegate (IDataReader reader, short set)
+        //            {
+        //                UserSettings item = new UserSettings();
+        //                int startingIndex = 0;
 
-                        item.SettingId = reader.GetSafeInt32(startingIndex++);
-                        item.Value = reader.GetSafeString(startingIndex++);
-                        item.Name = reader.GetSafeString(startingIndex++);
+        //                item.SettingId = reader.GetSafeInt32(startingIndex++);
+        //                item.Value = reader.GetSafeString(startingIndex++);
+        //                item.Name = reader.GetSafeString(startingIndex++);
 
-                        if (list == null)
-                        {
-                            list = new List<UserSettings>();
-                        }
-                        list.Add(item);
-                    });
-            }
-            return list;
-        }
+        //                if (list == null)
+        //                {
+        //                    list = new List<UserSettings>();
+        //                }
+        //                list.Add(item);
+        //            });
+        //    }
+        //    return list;
+        //}
 
-        public static void UpdateSettings(UserSettingsRequest model)
-        {
-            DataProvider.ExecuteNonQuery(GetConnection, "dbo.UserSettingValues_Upsert",
-                inputParamMapper: delegate (SqlParameterCollection settings)
-                {
-                    settings.AddWithValue("@UserId", GetCurrentUserId());
-                    settings.AddWithValue("@SettingId", model.SettingId);
-                    settings.AddWithValue("@Value", model.SettingValue);
-                });
-        }
+        //public static void UpdateSettings(UserSettingsRequest model)
+        //{
+        //    DataProvider.ExecuteNonQuery(GetConnection, "dbo.UserSettingValues_Upsert",
+        //        inputParamMapper: delegate (SqlParameterCollection settings)
+        //        {
+        //            settings.AddWithValue("@UserId", GetCurrentUserId());
+        //            settings.AddWithValue("@SettingId", model.SettingId);
+        //            settings.AddWithValue("@Value", model.SettingValue);
+        //        });
+        //}
 
-        public static List<RolesDomain> GetRoles()
-        {
-            List<RolesDomain> list = null;
-            DataProvider.ExecuteCmd(GetConnection, "dbo.AspNetRoles_SelectRoles"
-                , inputParamMapper: null
-                , map: delegate (IDataReader reader, short set)
-                {
-                    RolesDomain roles = new RolesDomain();
-                    int startingIndex = 0;
+        //public static List<RolesDomain> GetRoles()
+        //{
+        //    List<RolesDomain> list = null;
+        //    DataProvider.ExecuteCmd(GetConnection, "dbo.AspNetRoles_SelectRoles"
+        //        , inputParamMapper: null
+        //        , map: delegate (IDataReader reader, short set)
+        //        {
+        //            RolesDomain roles = new RolesDomain();
+        //            int startingIndex = 0;
 
-                    roles.Id = reader.GetSafeString(startingIndex++);
-                    roles.Name = reader.GetSafeString(startingIndex++);
-                    if (list == null)
-                    {
-                        list = new List<RolesDomain>();
-                    }
-                    list.Add(roles);
-                });
-            return list;
-        }
+        //            roles.Id = reader.GetSafeString(startingIndex++);
+        //            roles.Name = reader.GetSafeString(startingIndex++);
+        //            if (list == null)
+        //            {
+        //                list = new List<RolesDomain>();
+        //            }
+        //            list.Add(roles);
+        //        });
+        //    return list;
+        //}
 
-        public static List<NetUserDomain> GetUserList()
-        {
-            List<NetUserDomain> list = null;
-            DataProvider.ExecuteCmd(GetConnection, "dbo.AspNetUser_SELECTALL"
-                , inputParamMapper: null
-                , map: delegate (IDataReader reader, short set)
-                {
-                    NetUserDomain info = new NetUserDomain();
-                    int startingIndex = 0;
+        //public static List<NetUserDomain> GetUserList()
+        //{
+        //    List<NetUserDomain> list = null;
+        //    DataProvider.ExecuteCmd(GetConnection, "dbo.AspNetUser_SELECTALL"
+        //        , inputParamMapper: null
+        //        , map: delegate (IDataReader reader, short set)
+        //        {
+        //            NetUserDomain info = new NetUserDomain();
+        //            int startingIndex = 0;
 
-                    info.Id = reader.GetSafeString(startingIndex++);
-                    info.Email = reader.GetSafeString(startingIndex++);
-                    info.UserName = reader.GetSafeString(startingIndex++);
+        //            info.Id = reader.GetSafeString(startingIndex++);
+        //            info.Email = reader.GetSafeString(startingIndex++);
+        //            info.UserName = reader.GetSafeString(startingIndex++);
 
-                    if (list == null)
-                    {
-                        list = new List<NetUserDomain>();
-                    }
-                    list.Add(info);
-                });
-            return list;
-        }
+        //            if (list == null)
+        //            {
+        //                list = new List<NetUserDomain>();
+        //            }
+        //            list.Add(info);
+        //        });
+        //    return list;
+        //}
 
-        public static void AddRole(string id, string roleId)
-        {
-            DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUserRoles_Insert"
-                     , inputParamMapper: delegate (SqlParameterCollection param)
-                     {
-                         param.AddWithValue("@UserId", id);
-                         param.AddWithValue("@RoleId", roleId);
-                     });
+        //public static void AddRole(string id, string roleId)
+        //{
+        //    DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUserRoles_Insert"
+        //             , inputParamMapper: delegate (SqlParameterCollection param)
+        //             {
+        //                 param.AddWithValue("@UserId", id);
+        //                 param.AddWithValue("@RoleId", roleId);
+        //             });
 
-        }
+        //}
 
-        public static void DeleteRole(string id, string roleId)
-        {
-            DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUserRoles_Delete"
-               , inputParamMapper: delegate (SqlParameterCollection parameterCollection)
-               {
-                   parameterCollection.AddWithValue("@UserId", id);
-                   parameterCollection.AddWithValue("@RoleId", roleId);
-               });
-        }
+        //public static void DeleteRole(string id, string roleId)
+        //{
+        //    DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUserRoles_Delete"
+        //       , inputParamMapper: delegate (SqlParameterCollection parameterCollection)
+        //       {
+        //           parameterCollection.AddWithValue("@UserId", id);
+        //           parameterCollection.AddWithValue("@RoleId", roleId);
+        //       });
+        //}
     }
 }

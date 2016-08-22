@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNet.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-
-using dotnetCloudantWebstarter.Models;
+using CPI.Models;
 using Newtonsoft.Json;
 using System.Text;
+using System.Web.Mvc;
 
-namespace dotnetCloudantWebstarter.Services
+namespace CPI.Services
 {
     public class InputService
     {

@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNet.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
-namespace dotnetCloudantWebstarter.Services
+namespace CPI.Services
 {
     public class PersonalityService
     {
 
         public static ContentResult GetPersonality()
-
         {
          var basePath = "https://gateway.watsonplatform.net/personality-insights/api/v2/profile";
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace dotnetCloudantWebstarter.Models.ViewModels
+namespace CPI.Models.ViewModels
 {
     public class ItemViewModel<T> : BaseViewModel
     {

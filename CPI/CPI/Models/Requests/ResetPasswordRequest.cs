@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 //using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
-using dotnetCloudantWebstarter.Models.Requests.ForgotPassword;
+using CPI.Models.Requests.ForgotPassword;
 
-namespace dotnetCloudantWebstarter.Models.Requests
+namespace CPI.Models.Requests
 {
     public class ResetPasswordRequest 
     {

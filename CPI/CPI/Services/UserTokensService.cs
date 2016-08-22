@@ -1,14 +1,14 @@
-﻿using Sabio.Data;
-using Sabio.Web.Domain;
-using Sabio.Web.Models.Requests.UserTokens;
+﻿using CPI.Domain;
+using CPI.Models.Requests.UserTokens;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Data;
 
-namespace Sabio.Web.Services
+namespace CPI.Services
 {
     public class UserTokensService : BaseService
     {

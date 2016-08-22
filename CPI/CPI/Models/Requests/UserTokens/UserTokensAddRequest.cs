@@ -5,7 +5,7 @@ using System.Web;
 //using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace dotnetCloudantWebstarter.Models.Requests.UserTokens
+namespace CPI.Models.Requests.UserTokens
 {
     public class UserTokensAddRequest
     {

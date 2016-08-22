@@ -1,5 +1,5 @@
 ﻿
-namespace dotnetCloudantWebstarter.Models
+namespace CPI.Models
 {
     public class ToDoItem
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace dotnetCloudantWebstarter.Models.Responses
+namespace CPI.Models.Responses
 {
     public class ErrorResponse : BaseResponse
     {

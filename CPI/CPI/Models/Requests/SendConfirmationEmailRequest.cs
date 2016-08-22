@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace dotnetCloudantWebstarter.Models.Requests
+namespace CPI.Models.Requests
 {
     public class SendConfirmationEmailRequest
     {
