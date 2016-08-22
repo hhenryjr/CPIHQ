@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html>
+<body data-ng-app="sabioApp">
+    <div data-ng-controller="$LoginController as login" id="LogInController" class="animation-fadeIn">
+        @*<img id="picture" ng-src="" alt="Login Background" class="full-bg animation-pulseSlow">*@
+        <div id="login-container" class="animation-fadeIn">
+            <div class="login-title text-center">
+                <h1> <small>Please <strong>Login</strong> or <strong>Register</strong></small></h1>
+            </div>
+
+            <div class="block push-bit">
+
+                <form id="loginForm" data-ng-submit="login.onLoginFormValidate()" name="login.loginForm" class="form-horizontal form-bordered form-control-borderless" novalidate>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                                <input type="text"
+                                       id="login-email"
+                                       name="username"
+                                       ng-model="login.myData.username"
+                                       class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.username.$valid}"
+                                       required
+                                       ng-required="true"
+                                       placeholder="UserName">
+                                <div role="alert" class="help-inline error" style="color:red">
+                                    <span class="error has-error" ng-show="login.showLoginFormErrors && login.loginForm.username.$error.required">Please enter your UserName</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                                <input type="password"
+                                       id="login-password"
+                                       ng-model="login.myData.Password"
+                                       name="Password"
+                                       class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.Password.$valid}"
+                                       required
+                                       ng-required="true"
+                                       placeholder="Password">
+                                <div role="alert" class="help-inline error" style="color:red">
+                                    <span class="error has-error" ng-show="login.showLoginFormErrors && login.loginForm.Password.$error.required">Please enter your Password</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-actions">
+
+                        <div class="col-xs-4">
+                            <label class="switch switch-primary" data-toggle="tooltip" title="Remember Me?">
+                                <input type="checkbox"
+                                       id="login-remember-me"
+                                       name="login-remember-me" checked>
+                                <span></span>
+                            </label>
+                            <label>
+                                Remember Me
+                            </label>
+                        </div>
+
+                        <div class="col-xs-8 text-right">
+                            <button type="submit" class="btn btn-sm btn-primary" id="cmdLogin"><i class="fa fa-angle-right"></i> Login</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12 text-center">
+                            <a href="http://lms.dev/forgotpassword" id="forgotPassword"><small>Forgot password?</small></a> -
+                            <a href="http://lms.dev/register" id="register"><small>Create a new account</small></a>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="alert" id="msgWindow"></div>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+    <script src="/scripts/sabio.js"></script>
+    <script src="/scripts/ng/angular.js"></script>
+    <script src="/scripts/sabio.ng.app.js"></script>
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="/scripts/sabio.services.forgotPassword.js"></script>
+    <script src="/scripts/sabio.services.login.js"></script>
+    <script src="/scripts/sabio.services.userTokens.js"></script>
+    <script scr="/scripts/sabio.services.messages.js"></script>
+    @*<script src="/scripts/jquery.validate.js"></script>
+        <script src="/js/pages/login.js"></script>
+        <script>$(function () { Login.init(); });</script>*@
+
+    <script type="text/javascript">
+
+        sabio.page.startUp = function () {
+            sabio.page.userController = sabio.ng.getControllerInstance($("#LogInController"));
+        };
+
+        sabio.services.LoginFactory = function ($baseService) {
+            var aSabioServiceObject = sabio.services.login;
+            var newService = $baseService.merge(true, {}, aSabioServiceObject, $baseService);
+            return newService;
+        }
+
+        sabio.page.LoginControllerFactory = function (
+            $scope
+            , $baseController
+            , $LoginService
+            , $alertService) {
+
+            var vm = this;
+            $baseController.merge(vm, $baseController);
+
+            vm.$scope = $scope;
+            vm.$LoginService = $LoginService;
+            vm.$alertService = $alertService;
+
+            vm.settings = _settings;
+
+            vm.thisBackGroundPic = _thisBackGroundPic;
+            vm.cycleThruBackgroundPic = _cycleThruBackgroundPic
+
+            vm.onLoginUser = _onLoginUser;
+            vm.loginSuccess = _loginSuccess;
+            vm.loginError = _loginError;
+
+            vm.onLoginFormValidate = _onLoginFormValidate;
+
+            vm.notify = vm.$LoginService.getNotifier($scope);
+
+
+            render();
+            function render() {
+                vm.settings();
+                //vm.cycleThruBackgroundPic();
+            };
+
+            function _cycleThruBackgroundPic() {
+                var randomNumber = (Math.random()) * 10;
+                var Number = Math.floor(randomNumber) + 1;
+                var src;
+                switch (Number) {
+                    case 1:
+                    case 2:
+                        src = "http://sabio.la/images/hacks/IMG_6094.JPG";
+                        break;
+                    case 3:
+                    case 4:
+                        src = "http://sabio.la/images/hacks/img19.jpg";
+                        break;
+                    case 5:
+                    case 6:
+                        src = "http://sabio.la/images/hacks/IMG_6021.JPG";
+                        break;
+                    case 7:
+                    case 8:
+                        src = "http://sabio.la/images/hacks/women.JPG";
+                        break;
+                    case 9:
+                    case 10:
+                        src = "http://sabio.la/images/hacks/IMG_6057.JPG";
+                        break;
+                }
+                vm.thisBackGroundPic(src);
+            }
+
+            function _thisBackGroundPic(pic) {
+                angular.element("#picture").attr("src", pic);
+            }
+
+
+            function _onLoginFormValidate() {
+                vm.showLoginFormErrors = true;
+
+                if (vm.loginForm.$valid) {
+                    vm.onLoginUser();
+                }
+            }
+
+            function _onLoginUser() {
+                vm.$LoginService.add(vm.myData, _loginSuccess, vm.loginError);
+            };
+
+            function _loginSuccess(data, status, xhr) {
+                //console.log(data);
+                location.href = '/user/current';
+                vm.success = "You have successfully logged in!";
+                vm.$alertService.onSuccess(vm.success);
+            }
+
+            function _loginError(jqXHR, textStatus, errorThrown) {
+                vm.error = "We're sorry, but you used a User Name and/or password that doesn't match our records.";
+                vm.$alertService.onError(vm.error);
+            }
+
+            function _settings() {
+                vm.data = {};
+                vm.showLoginFormErrors = false;
+            }
+        }
+
+
+        sabio.ng.addService(sabio.ng.app.module
+            , "$LoginService"
+            , ["$baseService"]
+            , sabio.services.LoginFactory);
+
+        sabio.ng.addController(sabio.ng.app.module
+            , "$LoginController"
+            , ['$scope', '$baseController', "$LoginService"]
+            , sabio.page.LoginControllerFactory);
+
+
+    </script>
+</body>
+</html>
+
+
