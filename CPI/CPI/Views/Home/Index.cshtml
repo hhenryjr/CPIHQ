@@ -1,4 +1,5 @@
 ﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
 }
 
@@ -27,19 +28,31 @@
 
     <div class="container">
         <form class="form-signin">
-            <h2 class="form-signin-heading">Twitter Personality</h2>
+            <h2 class="form-signin-heading">Cognitive Personality Insight</h2>
             <label class="sr-only" for="inputEmail"></label>
-            <input type="text" autofocus="" required="" placeholder="Twitter Handle" class="form-control" id="twitter">
+            <input type="text" autofocus="" required="" class="form-control" id="twitter">
 
             <br />
+
+            <div class="block">
+                <span>Upload File</span>
+                <div action="{{'/api/files/supplier/' + info.supplierId}}" method="post"
+                      enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                      ng-dropzone dropzone="info.dropzone" dropzone-config="info.dropzoneConfig">
+                    <div class="fallback">
+                        <input type="file" name="file" multiple />
+                        <input type="submit" value="Upload" />
+                    </div>
+                </div>
+            </div>
 
             <button id="handle" class="btn btn-info btn-block " ng-click="results.sendHandle()">CHECK</button>
         </form>
     </div>
     <br />
-    <div class="container">
+    @*<div class="container">
         <img src="http://cdn2.business2community.com/wp-content/uploads/2011/08/twitter-icon-sketch.jpg" alt="twitter" style="width:200px;height:200px;" />
-    </div>
+    </div>*@
 
 
 
@@ -89,7 +102,7 @@
 
     <script src="~/scripts/sabio.js"></script>
     <script src="~/scripts/sabio.service.personality.js"></script>
-    <script src="~/scripts/ng/angular.js"></script>
+    @*<script src="~/scripts/ng/angular.js"></script>*@
     <script src="~/scripts/sabio.ng.app.js"></script>
 
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -132,6 +145,39 @@
             vm.personality = {};
             vm.test = "test";
             vm.sendHandle = _sendHandle;
+            vm.dropzoneConfig = {
+                uploadMultiple: false,
+                maxFileSize: 4,
+                url: "/api/files/supplier/" + vm.supplierId,
+                acceptedFiles: '.xlsx,.xls,.csv',
+                addRemoveLinks: true,
+                accept: function (file, done) {
+                    if (file.size > 4000000)
+                        alert('File size exceeded.  Please contact support@fuelerlinx.com to approve this file.');
+                    else if (file.type == 'application/vnd.ms-excel' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                        var container = $(file.previewElement).parent();
+                        $(file.previewElement).hide();
+                        done();
+                    } else
+                        alert('That type of file is currently not supported.');
+                },
+                success: function (data) {
+                    var res = JSON.parse(data.xhr.responseText);
+                    console.log(res.Item);
+                    alert(res.Item);
+                },
+                init: function () {
+                    var myDropzone = this;
+
+                    this.on("success", function (data) {
+                        var res = JSON.parse(data.xhr.responseText);
+                    });
+
+                    this.on("processing", function (file) {
+                        this.options.url = "/api/files/supplier/" + vm.supplierId;
+                    });
+                }
+            };
 
             vm.notify = vm.$personalityService.getNotifier($scope);
 

@@ -137,7 +137,7 @@ sabio.ng.app.services.baseService = function ($win, $loc, $util) {
     return baseService;
 }
 
-sabio.ng.app.controllers.baseController = function ($doc, $logger, $sab, $route, $routeParams, $eventHandlerService, $eventsEnum, $location, $alertService) {
+sabio.ng.app.controllers.baseController = function ($doc, $logger, $sab, $route, $routeParams, $eventsEnum, $location/*, $alertService*/) {
     /*
         this is intended to serve as the base controller
     */
@@ -148,8 +148,7 @@ sabio.ng.app.controllers.baseController = function ($doc, $logger, $sab, $route,
         , $sabio: $sab
         , $location: $location
         , merge: $.extend
-        , $eventHandlerService: $eventHandlerService
-        , $alertService: $alertService
+        //, $alertService: $alertService
         , $eventsEnum: $eventsEnum
         , setUpCurrentRequest: function (viewModel) {
 
@@ -255,7 +254,7 @@ sabio.ng.addService(sabio.ng.app.module
 
 sabio.ng.addService(sabio.ng.app.module
 					, "$baseController"
-					, ['$document', '$log', '$sabio', "$route", "$routeParams", "$eventHandlerService", "$eventsEnum", "$location", "$alertService"]
+					, ['$document', '$log', '$sabio', "$route", "$routeParams", "$eventsEnum", "$location"/*, "$alertService"*/]
 					, sabio.ng.app.controllers.baseController);
 
 

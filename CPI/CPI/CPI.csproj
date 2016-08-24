@@ -1201,6 +1201,7 @@
     <Content Include="js\helpers\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="js\helpers\ckeditor\samples\sample_posteddata.php" />
     <Content Include="js\helpers\ckeditor\skins\bootstrapck\readme.md" />
+    <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\errors.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap3-editable\css\bootstrap-editable.css" />
@@ -1209,7 +1210,9 @@
     <Content Include="Scripts\bootstrap3-editable\js\bootstrap-editable.js" />
     <Content Include="Scripts\bootstrap3-editable\js\bootstrap-editable.min.js" />
     <Content Include="Scripts\dropzone.js" />
+    <Content Include="Scripts\gifts.js" />
     <Content Include="Scripts\highlight.min.js" />
+    <Content Include="Scripts\i18n.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
@@ -1953,6 +1956,7 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\index.js" />
     <Content Include="Scripts\inputs-ext\address\address.css" />
     <Content Include="Scripts\inputs-ext\address\address.js" />
     <Content Include="Scripts\inputs-ext\typeaheadjs\lib\typeahead.js" />
@@ -2023,6 +2027,7 @@
     <Content Include="Scripts\ng\dirPagination.js" />
     <Content Include="Scripts\ng\isteven-multi-select.js" />
     <Content Include="Scripts\ng\ng-tags-input.min.js" />
+    <Content Include="Scripts\personality.js" />
     <Content Include="Scripts\prototype.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -2031,8 +2036,8 @@
     <Content Include="Scripts\sabio.js" />
     <Content Include="Scripts\sabio.ng.app.js" />
     <Content Include="Scripts\sabio.ng.dashboardSidebar.js" />
+    <Content Include="Scripts\sabio.service.personality.js" />
     <Content Include="Scripts\sabio.services.dashboardSidebar.js" />
-    <Content Include="Scripts\sabio.services.forgotPassword - Copy.js" />
     <Content Include="Scripts\sabio.services.forgotPassword.js" />
     <Content Include="Scripts\sabio.services.login.js" />
     <Content Include="Scripts\sabio.services.messaging.js" />
@@ -2049,6 +2054,7 @@
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\tree.jquery.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.14.2.min.js" />
+    <Content Include="Scripts\util.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
