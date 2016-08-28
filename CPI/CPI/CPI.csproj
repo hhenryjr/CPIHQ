@@ -210,6 +210,7 @@
     <Compile Include="Classes\SiteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiControllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\FileAPIController.cs" />
     <Compile Include="Controllers\ApiControllers\InputApiController.cs" />
     <Compile Include="Controllers\ApiControllers\MessageApiController.cs" />
     <Compile Include="Controllers\ApiControllers\PersonalityApiController.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\InputService.cs" />
     <Compile Include="Services\MessagingService.cs" />
+    <Compile Include="Services\ParseService.cs" />
     <Compile Include="Services\PersonalityService.cs" />
     <Compile Include="Services\TwitterService.cs" />
     <Compile Include="Services\UserDataService.cs" />
@@ -2078,6 +2080,8 @@
     <Content Include="Scripts\ui-bootstrap-tpls-0.14.2.min.js" />
     <Content Include="Scripts\util.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Template\ConfirmEmail.html" />
+    <Content Include="Template\ForgotPasswordConfirmEmail.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
