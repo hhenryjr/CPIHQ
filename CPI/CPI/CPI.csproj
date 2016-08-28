@@ -247,6 +247,7 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\InputService.cs" />
     <Compile Include="Services\MessagingService.cs" />
+    <Compile Include="Services\ParseService.cs" />
     <Compile Include="Services\PersonalityService.cs" />
     <Compile Include="Services\TwitterService.cs" />
     <Compile Include="Services\UserDataService.cs" />
