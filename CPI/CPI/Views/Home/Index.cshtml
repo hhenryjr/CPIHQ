@@ -31,23 +31,23 @@
             <h2 class="form-signin-heading">Cognitive Personality Insight</h2>
             <label class="sr-only" for="inputEmail"></label>
             <input type="text" autofocus="" required="" class="form-control" id="twitter">
-
+        </form>
             <br />
 
             <div class="block">
                 <span>Upload File</span>
-                <div action="{{'/api/files/supplier/' + info.supplierId}}" method="post"
+                <form action="{{'/api/files/supplier/' + info.supplierId}}" method="post"
                       enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
                       ng-dropzone dropzone="info.dropzone" dropzone-config="info.dropzoneConfig">
                     <div class="fallback">
                         <input type="file" name="file" multiple />
                         <input type="submit" value="Upload" />
                     </div>
-                </div>
+                </form>
             </div>
 
             <button id="handle" class="btn btn-info btn-block " ng-click="results.sendHandle()">CHECK</button>
-        </form>
+        
     </div>
     <br />
     @*<div class="container">
