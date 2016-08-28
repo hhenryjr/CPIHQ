@@ -200,6 +200,7 @@
     <Compile Include="Classes\SiteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiControllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\FileAPIController.cs" />
     <Compile Include="Controllers\ApiControllers\InputApiController.cs" />
     <Compile Include="Controllers\ApiControllers\MessageApiController.cs" />
     <Compile Include="Controllers\ApiControllers\PersonalityApiController.cs" />
