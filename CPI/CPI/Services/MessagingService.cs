@@ -90,7 +90,7 @@ namespace CPI.Services
 
         private async Task SendAsync(ISendGrid message)
         {
-            var credentials = new NetworkCredential("Gregorio", "LosAngeles8!");
+            var credentials = new NetworkCredential("neil0609", "cpipass1!");
 
             var trasportToWeb = new SendGrid.Web(credentials);
 
