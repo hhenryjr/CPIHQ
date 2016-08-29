@@ -13,7 +13,6 @@ using CPI.Models.Requests;
 
 namespace CPI.Services
 {
-
     public class MessagingService : BaseService
     {
         private static readonly string _siteAdminEmailAddress = ConfigurationManager.AppSettings["SiteAdminEmailAddress"];

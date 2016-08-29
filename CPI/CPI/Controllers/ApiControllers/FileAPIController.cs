@@ -33,10 +33,10 @@ namespace CPI.Controllers.ApiControllers
                 }
             }
 
-            foreach (string path in filePathList)
-            {
-                File.Delete(path);
-            }
+            //foreach (string path in filePathList)
+            //{
+            //    File.Delete(path);
+            //}
             ItemResponse<string> response = new ItemResponse<string>();
             response.Item = "Uploaded Successfully";//FileUploadService.UploadResult();
             return Request.CreateResponse(PersonalityResult);
