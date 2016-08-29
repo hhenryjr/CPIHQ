@@ -43,7 +43,7 @@ namespace CPI.Services
 
         //}
 
-        public async Task SendConfirmationEmail(SendConfirmationEmailRequest model) //****guide
+        public static async Task SendConfirmationEmail(SendConfirmationEmailRequest model) //****guide
         {
 
             SendGridMessage myMessage = new SendGridMessage();
@@ -67,7 +67,7 @@ namespace CPI.Services
         }
 
         //****ADDED**** 
-        public async Task SendForgotPasswordEmail(SendConfirmationEmailRequest model)
+        public static async Task SendForgotPasswordEmail(SendConfirmationEmailRequest model)
         {
             SendGridMessage userEmailMessage = new SendGridMessage();
 
@@ -88,7 +88,7 @@ namespace CPI.Services
             await SendAsync(userEmailMessage); //syncs userEmailMessage
         }
 
-        private async Task SendAsync(ISendGrid message)
+        private static async Task SendAsync(ISendGrid message)
         {
             var credentials = new NetworkCredential("neil0609", "cpipass1!");
 
