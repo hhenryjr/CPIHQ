@@ -30,29 +30,31 @@
         <form class="form-signin">
             <h2 class="form-signin-heading">Cognitive Personality Insight</h2>
             <label class="sr-only" for="inputEmail"></label>
-            <input type="text" autofocus="" required="" class="form-control" id="twitter">
-        </form>
+            <textarea rows="4" cols="50"></textarea>
             <br />
+            <button id="handle" class="btn btn-info" ng-click="results.sendHandle()">CHECK</button>
+        </form>
+        <br />
 
-            <div class="block">
-                <span>Upload File</span>
-                <form action="{{'/api/files/'}}" method="post"
-                      enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
-                      ng-dropzone dropzone="info.dropzone" dropzone-config="info.dropzoneConfig">
-                    <div class="fallback">
-                        <input type="file" name="file" multiple />
-                        <input type="submit" value="Upload" />
-                    </div>
-                </form>
-            </div>
+        <div class="block">
+            <span>Upload File</span>
+            <form action="{{'/api/files/'}}" method="post"
+                  enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                  ng-dropzone dropzone="info.dropzone" dropzone-config="info.dropzoneConfig">
+                <div class="fallback">
+                    <input type="file" name="file" multiple />
+                    <input type="submit" value="Upload" />
+                </div>
+            </form>
+        </div>
 
-            <button id="handle" class="btn btn-info btn-block " ng-click="results.sendHandle()">CHECK</button>
-        
+
+
     </div>
     <br />
     @*<div class="container">
-        <img src="http://cdn2.business2community.com/wp-content/uploads/2011/08/twitter-icon-sketch.jpg" alt="twitter" style="width:200px;height:200px;" />
-    </div>*@
+            <img src="http://cdn2.business2community.com/wp-content/uploads/2011/08/twitter-icon-sketch.jpg" alt="twitter" style="width:200px;height:200px;" />
+        </div>*@
 
 
 
@@ -94,7 +96,7 @@
 
     </div>
 </div>
-    @section Scripts{
+@section Scripts{
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
@@ -200,7 +202,7 @@
 
 
 
-              //  $('#handle').on('click', sabio.page.handlers.sendHandle);
+            //  $('#handle').on('click', sabio.page.handlers.sendHandle);
 
             function _sendHandle() {
                 console.log("button clicked");
@@ -241,5 +243,5 @@
 
 
     </script>
-        }
+}
 

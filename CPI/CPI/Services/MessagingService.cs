@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
-//using SendGrid;
+using SendGrid;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Glimpse.AspNet.Tab;
@@ -18,30 +18,30 @@ namespace CPI.Services
     {
         private static readonly string _siteAdminEmailAddress = ConfigurationManager.AppSettings["SiteAdminEmailAddress"];
 
-        /*public async Task Mail(MailRequest model)
-        {
-            SendGridMessage myMessage = new SendGridMessage();
+        //public async Task Mail(MailRequest model)
+        //{
+        //    SendGridMessage myMessage = new SendGridMessage();
 
-            myMessage.AddTo(_siteAdminEmailAddress);
-            var user = UserService.GetCurrentUser();
-            myMessage.From = new MailAddress(user.Email, user.UserName);
-            myMessage.Subject = model.FormSubject;
-            
-
-            string path = HttpContext.Current.Server.MapPath("~/Template/ContactUs.html");
-            string contents = File.ReadAllText(path);
-
-            contents = contents.Replace("{{domain}}", "http://localhost:53700/");
+        //    myMessage.AddTo(_siteAdminEmailAddress);
+        //    var user = UserService.GetCurrentUser();
+        //    myMessage.From = new MailAddress(user.Email, user.UserName);
+        //    myMessage.Subject = model.FormSubject;
 
 
-            contents = contents.Replace("<%body%>", model.FormMessage);
+        //    string path = HttpContext.Current.Server.MapPath("~/Template/ContactUs.html");
+        //    string contents = File.ReadAllText(path);
 
-            myMessage.Html = contents;
+        //    contents = contents.Replace("{{domain}}", "http://localhost:53700/");
 
-           
-            await SendAsync(myMessage);
 
-        }
+        //    contents = contents.Replace("<%body%>", model.FormMessage);
+
+        //    myMessage.Html = contents;
+
+
+        //    await SendAsync(myMessage);
+
+        //}
 
         public async Task SendConfirmationEmail(SendConfirmationEmailRequest model) //****guide
         {
@@ -53,7 +53,7 @@ namespace CPI.Services
 
             myMessage.Subject = "Please Confirm Email";
 
-            string path = HttpContext.Current.Server.MapPath("~/Template/ConfirmEmail.html"); 
+            string path = HttpContext.Current.Server.MapPath("~/Template/ConfirmEmail.html");
             string contents = File.ReadAllText(path);
 
             contents = contents.Replace("{{domain}}", "http://lms.dev/confirm/" + model.Token.ToString());
@@ -67,9 +67,9 @@ namespace CPI.Services
         }
 
         //****ADDED**** 
-         public async Task SendForgotPasswordEmail(SendConfirmationEmailRequest model)
-         {
-             SendGridMessage userEmailMessage = new SendGridMessage();
+        public async Task SendForgotPasswordEmail(SendConfirmationEmailRequest model)
+        {
+            SendGridMessage userEmailMessage = new SendGridMessage();
 
             userEmailMessage.AddTo(model.Email); //supplies the email into tokenMessage, so tokenMessage can be sent to the user
             userEmailMessage.From = new MailAddress(_siteAdminEmailAddress, "Sabio Team");   //supplies from where it been sent into message
@@ -80,7 +80,7 @@ namespace CPI.Services
             string contents = File.ReadAllText(path); //reads it 
 
             contents = contents.Replace("{{domain}}", "http://corbulo.biz/ResetPassword/" + model.Token); //places the content to where the token is grabbed in 3
-            
+
             contents = contents.Replace("<%body%>", "Please confirm reset password");
 
             userEmailMessage.Html = contents;
@@ -96,7 +96,7 @@ namespace CPI.Services
 
             await trasportToWeb.DeliverAsync(message);
 
-        }*/
+        }
 
     }
 
