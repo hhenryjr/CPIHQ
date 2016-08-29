@@ -1,53 +1,76 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using System.Web.Http;
 using CPI.Models.Responses;
 using CPI.Services;
 using System.Net.Http;
+using System.Collections.Generic;
 
 namespace CPI.Controllers.ApiControllers
 {
     [RoutePrefix("api/files")]
     public class FileAPIController : ApiController
     {
-        [Route("supplier/{id:int}"), HttpPost]
-        public HttpResponseMessage MyFileUpload(int id)
+        [Route(""), HttpPost]
+        public HttpResponseMessage MyFileUpload()
         {
+
             var request = HttpContext.Current.Request;
+            List<string> filePathList = new List<string>();
+            System.Web.Mvc.ContentResult PersonalityResult = null;
             foreach (string fileKey in request.Files)
             {
                 HttpPostedFile file = request.Files[fileKey];
-                PerformStandardSave(file, id);
+                string serverPath = PerformStandardSave(file);
+                filePathList.Add(serverPath);
+
+                if(!string.IsNullOrEmpty(serverPath))
+                {
+                    string content = ParseService.ParseFileExtractor(serverPath);
+                    PersonalityResult = PersonalityService.GetPersonality(content);
+                    
+                    //File.Delete(serverPath);
+                }
             }
 
+            //foreach (string path in filePathList)
+            //{
+            //    File.Delete(path);
+            //}
             ItemResponse<string> response = new ItemResponse<string>();
             response.Item = "Uploaded Successfully";//FileUploadService.UploadResult();
-            return Request.CreateResponse(response);
+            return Request.CreateResponse(PersonalityResult);
         }
 
-        private void PerformStandardSave(HttpPostedFile file, int supplierId)
+        private string PerformStandardSave(HttpPostedFile file)
         {
+            string finalPath = null;
             try
             {
                 string fileType = file.FileName.Substring(file.FileName.LastIndexOf(".") + 1);
-                string savePath = string.Format("{0}\\{1}_{2}.{3}", GetSaveDirectory(), /*Users.CurrentUser.Id,*/ supplierId, fileType);
+                string filename = file.FileName.Substring(0, file.FileName.LastIndexOf("."));
+                string savePath = string.Format("{0}\\TempFiles\\{1}", GetSaveDirectory(), file.FileName);
 
                 file.SaveAs(savePath);
+                finalPath = savePath;
                 //SessionHelper.Instance.MostRecentlyUploadedFilePath = savePath;
                 //FuelSheetHandler handler = new FuelSheetHandler();
                 //handler.Process(savePath, Users.CurrentUser.ClientID, supplierId);
+                
             }
             catch (System.Exception exception)
             {
                 var test = exception;
+                finalPath = string.Empty;
             }
+            return finalPath;
         }
 
         private string GetSaveDirectory()
         {
             var request = HttpContext.Current.Request;
             string serverPath = request.PhysicalApplicationPath;
-            string uploadPath = serverPath + @"Uploads\";
-            return uploadPath;
+            return serverPath;
         }
     }
 }
