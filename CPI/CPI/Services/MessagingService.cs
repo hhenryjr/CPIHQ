@@ -43,60 +43,60 @@ namespace CPI.Services
 
         //}
 
-        //public async Task SendConfirmationEmail(SendConfirmationEmailRequest model) //****guide
-        //{
+        public async Task SendConfirmationEmail(SendConfirmationEmailRequest model) //****guide
+        {
 
-        //    SendGridMessage myMessage = new SendGridMessage();
+            SendGridMessage myMessage = new SendGridMessage();
 
-        //    myMessage.AddTo(model.Email);
-        //    myMessage.From = new MailAddress(_siteAdminEmailAddress, "Corbulo Team");
+            myMessage.AddTo(model.Email);
+            myMessage.From = new MailAddress(_siteAdminEmailAddress, "Corbulo Team");
 
-        //    myMessage.Subject = "Please Confirm Email";
+            myMessage.Subject = "Please Confirm Email";
 
-        //    string path = HttpContext.Current.Server.MapPath("~/Template/ConfirmEmail.html");
-        //    string contents = File.ReadAllText(path);
+            string path = HttpContext.Current.Server.MapPath("~/Template/ConfirmEmail.html");
+            string contents = File.ReadAllText(path);
 
-        //    contents = contents.Replace("{{domain}}", "http://lms.dev/confirm/" + model.Token.ToString());
+            contents = contents.Replace("{{domain}}", "http://lms.dev/confirm/" + model.Token.ToString());
 
-        //    contents = contents.Replace("<%body%>", "Please Confirm Email");
+            contents = contents.Replace("<%body%>", "Please Confirm Email");
 
-        //    myMessage.Html = contents;
+            myMessage.Html = contents;
 
-        //    await SendAsync(myMessage);
+            await SendAsync(myMessage);
 
-        //}
+        }
 
-        ////****ADDED**** 
-        //public async Task SendForgotPasswordEmail(SendConfirmationEmailRequest model)
-        //{
-        //    SendGridMessage userEmailMessage = new SendGridMessage();
+        //****ADDED**** 
+        public async Task SendForgotPasswordEmail(SendConfirmationEmailRequest model)
+        {
+            SendGridMessage userEmailMessage = new SendGridMessage();
 
-        //    userEmailMessage.AddTo(model.Email); //supplies the email into tokenMessage, so tokenMessage can be sent to the user
-        //    userEmailMessage.From = new MailAddress(_siteAdminEmailAddress, "Sabio Team");   //supplies from where it been sent into message
+            userEmailMessage.AddTo(model.Email); //supplies the email into tokenMessage, so tokenMessage can be sent to the user
+            userEmailMessage.From = new MailAddress(_siteAdminEmailAddress, "Sabio Team");   //supplies from where it been sent into message
 
-        //    userEmailMessage.Subject = "Please confirm reset password";                     //supplies subject into message
+            userEmailMessage.Subject = "Please confirm reset password";                     //supplies subject into message
 
-        //    string path = HttpContext.Current.Server.MapPath("~/Template/ForgotPasswordConfirmEmail.html"); //goes finds the ForgotPasswordConfirmEmail template
-        //    string contents = File.ReadAllText(path); //reads it 
+            string path = HttpContext.Current.Server.MapPath("~/Template/ForgotPasswordConfirmEmail.html"); //goes finds the ForgotPasswordConfirmEmail template
+            string contents = File.ReadAllText(path); //reads it 
 
-        //    contents = contents.Replace("{{domain}}", "http://corbulo.biz/ResetPassword/" + model.Token); //places the content to where the token is grabbed in 3
+            contents = contents.Replace("{{domain}}", "http://corbulo.biz/ResetPassword/" + model.Token); //places the content to where the token is grabbed in 3
 
-        //    contents = contents.Replace("<%body%>", "Please confirm reset password");
+            contents = contents.Replace("<%body%>", "Please confirm reset password");
 
-        //    userEmailMessage.Html = contents;
+            userEmailMessage.Html = contents;
 
-        //    await SendAsync(userEmailMessage); //syncs userEmailMessage
-        //}
+            await SendAsync(userEmailMessage); //syncs userEmailMessage
+        }
 
-        //private async Task SendAsync(ISendGrid message)
-        //{
-        //    var credentials = new NetworkCredential("neil0609", "cpipass1!");
+        private async Task SendAsync(ISendGrid message)
+        {
+            var credentials = new NetworkCredential("neil0609", "cpipass1!");
 
-        //    var trasportToWeb = new SendGrid.Web(credentials);
+            var trasportToWeb = new SendGrid.Web(credentials);
 
-        //    await trasportToWeb.DeliverAsync(message);
+            await trasportToWeb.DeliverAsync(message);
 
-        //}
+        }
 
     }
 
