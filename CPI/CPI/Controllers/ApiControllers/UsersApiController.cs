@@ -132,7 +132,7 @@ namespace CPI.ApiControllers
 
             if (user != null)
             {
-                Boolean emailConfirmed = true;//UserService.GetEmailConfirmed(model.UserName);
+                Boolean emailConfirmed = UserService.GetEmailConfirmed(model.UserName);
 
                 if (emailConfirmed)
                 {
@@ -190,7 +190,7 @@ namespace CPI.ApiControllers
                     request.Email = register.Email;
                     request.Token = tokensAddRequest.TokenId;
 
-                    //Task t = MessagingService.SendConfirmationEmail(request);
+                    Task t = MessagingService.SendConfirmationEmail(request);
                 }
                 else
                 {
