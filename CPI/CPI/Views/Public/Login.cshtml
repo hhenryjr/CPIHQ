@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_simpleLayout.cshtml";
 }
 
-<link href="http://lms.dev/Content/toastr.css" rel="stylesheet" />
+@*<link href="http://lms.dev/Content/toastr.css" rel="stylesheet" />*@
 
 
 <div data-ng-controller="$LoginController as login" id="LogInController" class="animation-fadeIn">
@@ -76,8 +76,8 @@
 
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
-                        <a href="http://localhost:59775/public/forgotpassword" id="forgotPassword"><small>Forgot password?</small></a> -
-                        <a href="http://localhost:59775/public/register" id="register"><small>Create a new account</small></a>
+                        <a href="http://localhost:59775/forgotpassword" id="forgotPassword"><small>Forgot password?</small></a> -
+                        <a href="http://localhost:59775/register" id="register"><small>Create a new account</small></a>
                     </div>
                 </div>
 
@@ -88,28 +88,6 @@
 
     </div>
 </div>
-
-@*<div id="modal-terms" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Terms &amp; Conditions</h4>
-            </div>
-            <div class="modal-body">
-                <h4>Title</h4>
-                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <h4>Title</h4>
-                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <h4>Title</h4>
-                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-        </div>
-    </div>
-</div>*@
 
 @section Scripts{
 
@@ -155,8 +133,7 @@
 
             vm.thisBackGroundPic = _thisBackGroundPic;
             vm.cycleThruBackgroundPic = _cycleThruBackgroundPic
-
-            vm.onLoginUser = _onLoginUser;
+            
             vm.loginSuccess = _loginSuccess;
             vm.loginError = _loginError;
 
@@ -164,8 +141,8 @@
 
             vm.notify = vm.$LoginService.getNotifier($scope);
 
-
             render();
+
             function render() {
                 vm.settings();
                 vm.cycleThruBackgroundPic();
@@ -207,26 +184,21 @@
 
             function _onLoginFormValidate() {
                 vm.showLoginFormErrors = true;
-
-                if (vm.loginForm.$valid) {
-                    vm.onLoginUser();
-                }
+                if (vm.loginForm.$valid) vm.$LoginService.add(vm.myData, _loginSuccess, vm.loginError);
             }
-
-            function _onLoginUser() {
-                vm.$LoginService.add(vm.myData, _loginSuccess, vm.loginError);
-            };
 
             function _loginSuccess(data, status, xhr) {
                 //console.log(data);
                 location.href = '/Home/Index';
                 vm.success = "You have successfully logged in!";
-                vm.$alertService.onSuccess(vm.success);
+                alert(vm.success);
+                //vm.$alertService.onSuccess(vm.success);
             }
 
             function _loginError(jqXHR, textStatus, errorThrown) {
                 vm.error = "We're sorry, but you used a User Name and/or password that doesn't match our records.";
-                vm.$alertService.onError(vm.error);
+                alert(vm.error);
+                //vm.$alertService.onError(vm.error);
             }
 
             function _settings() {
@@ -234,7 +206,6 @@
                 vm.showLoginFormErrors = false;
             }
         }
-
 
         sabio.ng.addService(sabio.ng.app.module
             , "$LoginService"

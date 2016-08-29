@@ -119,7 +119,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
-                        <small>Do you have an account?</small> <a href="http://localhost:59775/public/login" id="link-register"><small>Login</small></a>
+                        <small>Do you have an account?</small> <a href="http://localhost:59775/login" id="link-register"><small>Login</small></a>
                     </div>
                 </div>
             </form>
@@ -295,7 +295,8 @@
             function _onRegisterSuccess(data, status, xhr) {
                 vm.dataSuccess = "A Confirmation Email has been sent to your mailbox. Please confirm your email to continue.";
                 console.log(vm.dataSuccess);
-                vm.$alertService.onSuccess(vm.dataSuccess);
+                alert(vm.dataSuccess);
+                //vm.$alertService.onSuccess(vm.dataSuccess);
 
                 var registerToken = 1;
                 var form = vm.newUser;
@@ -305,7 +306,8 @@
 
             function _onRegisterError(jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON.errors[0]);
-                vm.$alertService.onError(jqXHR.responseJSON.errors[0]);
+                alert(jqXHR.responseJSON.errors[0]);
+                //vm.$alertService.onError(jqXHR.responseJSON.errors[0]);
             }
 
             function _onGetTokenSuccess(data, status, xhr) {
@@ -313,23 +315,25 @@
                 var registrationData = $(form).serialize();
                 var token = data.item;
                 var registrationDataWithToken = registrationData + "&token=" + token;
-                sabio.services.messaging.sendConfirmEmail(registrationDataWithToken, vm.onSendConfirmEmailSuccess, vm.onSendConfirmEmailError);
+                vm.$messagingService.sendConfirmEmail(registrationDataWithToken, vm.onSendConfirmEmailSuccess, vm.onSendConfirmEmailError);
             }
 
             function _onGetTokenError(jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON.errors[0]);
-                vm.$alertService.onError(jqXHR.responseJSON.errors[0]);
+                alert(jqXHR.responseJSON.errors[0]);
+                //vm.$alertService.onError(jqXHR.responseJSON.errors[0]);
             }
 
             function _onSendConfirmEmailSuccess() {
                 vm.success = "Confirmation Email Sent";
-                vm.$alertService.onSuccess(vm.success);
+                alert(vm.success);
+                //vm.$alertService.onSuccess(vm.success);
             }
 
             function _onSendConfirmEmailError() {
-                vm.$alertService.onError(jqXHR.responseJSON.errors);
+                //vm.$alertService.onError(jqXHR.responseJSON.errors);
                 console.log(jqXHR.responseJSON.errors[0]);
-                console.log("Confirmation Email failed to send");
+                alert("Confirmation Email failed to send");
             }
 
         }
