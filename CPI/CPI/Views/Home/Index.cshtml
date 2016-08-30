@@ -30,12 +30,11 @@
         <form class="form-signin">
             <h2 class="form-signin-heading">Cognitive Personality Insight</h2>
             <label class="sr-only" for="inputEmail"></label>
-            <textarea rows="4" cols="50"></textarea>
+            <textarea rows="4" cols="50" ng-model="results.Text"></textarea>
             <br />
-            <button id="handle" class="btn btn-info" ng-click="results.sendHandle()">CHECK</button>
+            <button id="handle" class="btn btn-info" ng-click="results.checkText(results.Text)">CHECK</button>
         </form>
         <br />
-
         <div class="block">
             <span>Upload File</span>
             <form class="dropzone" method="post" action="{{'/api/files/'}}"
@@ -47,53 +46,28 @@
                 </div>
             </form>
         </div>
-
-
-
     </div>
     <br />
     @*<div class="container">
             <img src="http://cdn2.business2community.com/wp-content/uploads/2011/08/twitter-icon-sketch.jpg" alt="twitter" style="width:200px;height:200px;" />
         </div>*@
-
-
-
-
-
-
-
     <div class="row model_personality" id="personality-template" style="margin-top:50px;">
         <div class="tname col-xs-6 col-md-2 text-right">
             <span ng-if="results.personality.children"><strong>Name</strong></span>
-
             <div data-ng-repeat="personality in results.personality.children[0].children[0].children">
                 <span>{{personality.name}}</span>
             </div>
-
-
         </div>
-
-
-
-
         <div class="tvalue col-xs-6 col-md-1">
             <span ng-if="results.personality.children"><strong>Value</strong></span>
 
             <div data-ng-repeat="personality in results.personality.children[0].children[0].children">
                 <span>{{personality.percentage * 100 | number:0}}%</span>
             </div>
-
-
-
         </div>
-
-
-
         <div class="col-xs-12 col-md-9">
             <div id="vizcontainer" class="well"></div>
         </div>
-
-
     </div>
 </div>
 @section Scripts{
@@ -136,8 +110,6 @@
 
             $baseController.merge(vm, $baseController);
             //  these properties will be used by the html directives to display data and let the user interact with data
-            //vm.items = null;
-            //vm.selectedEmployee = null;
 
             //  save a reference to our service class so we can call it later on
             vm.$personalityService = $personalityService;
@@ -146,7 +118,7 @@
 
             vm.receiveItems = _receiveItems;
             vm.personality = {};
-            vm.sendHandle = _sendHandle;
+            vm.checkText = _checkText;
             vm.dropzoneConfig = {
                 uploadMultiple: false,
                 maxFileSize: 4,
@@ -185,14 +157,15 @@
             render();
 
             function render() {
-                //vm.$personalityService.sendHandler("luisriv84", vm.receiveItems);
+                //vm.$personalityService.sendText("luisriv84", vm.receiveItems);
             }
 
             function _receiveItems(data) {
                 vm.notify(function () {
-                    vm.personality = data.tree;
-                    console.log(data);
-                    showVizualization(data);
+                    var content = JSON.parse(data.Content);
+                    vm.personality = content.tree;
+                    console.log(vm.personality);
+                    showVizualization(vm.personality);
                 });
 
             }
@@ -201,37 +174,29 @@
 
 
 
-            //  $('#handle').on('click', sabio.page.handlers.sendHandle);
+            //  $('#handle').on('click', sabio.page.handlers.checkText);
 
-            function _sendHandle() {
-                console.log("button clicked");
-                var url = $('#twitter').val();
-                sabio.services.personality.sendHandler(url, vm.receiveItems, sabio.page.onSendHandlerError)
+            function _checkText(text) {
+                var model = {
+                    Text: JSON.stringify(text)
+                }
+                vm.$personalityService.sendText(model, _receiveItems, _onsendTextError)
             }
 
 
-            sabio.page.handlers.sendHandle = function (evt) {
+            sabio.page.handlers.checkText = function (evt) {
                 evt.preventDefault();
                 var url = $('#twitter').val();
-                sabio.services.personality.sendHandler(url, vm.receiveItems, sabio.page.onSendHandlerError)
+                sabio.services.personality.sendText(url, vm.receiveItems, sabio.page.onsendTextError)
             }
 
-            sabio.page.onSendHandlerSuccess = function (data) {
-
+            sabio.page.onsendTextSuccess = function (data) {
                 console.log(data);
-
             }
 
-            sabio.page.onSendHandlerError = function (jqXhr, error) {
-
+            _onsendTextError = function (jqXhr, error) {
                 console.log(error);
-
             }
-
-
-
-
-
         }
 
         sabio.ng.addController(sabio.ng.app.module

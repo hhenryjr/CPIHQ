@@ -236,6 +236,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InputResult.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Requests\AddTextRequest.cs" />
     <Compile Include="Models\Requests\ForgotPasswordRequest.cs" />
     <Compile Include="Models\Requests\LoginRequest.cs" />
     <Compile Include="Models\Requests\RegistrationAddRequest.cs" />
