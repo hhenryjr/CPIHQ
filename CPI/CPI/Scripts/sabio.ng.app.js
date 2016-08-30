@@ -10,7 +10,7 @@ sabio.ng = {
     , controllerInstances: []
 	, exceptions: {}
 	, examples: {}
-    , defaultDependencies: ["ngAnimate", "ngRoute", "ui.bootstrap", "ngSanitize"]
+    , defaultDependencies: ["ngAnimate", "ngRoute", "ui.bootstrap", "ngSanitize", "ngDropzone"]
     , getModuleDependencies: function () {
         if (sabio.extraNgDependencies) {
             var newItems = sabio.ng.defaultDependencies.concat(sabio.extraNgDependencies);

@@ -38,7 +38,7 @@ namespace CPI.Controllers.ApiControllers
             //    File.Delete(path);
             //}
             ItemResponse<string> response = new ItemResponse<string>();
-            response.Item = "Uploaded Successfully";//FileUploadService.UploadResult();
+            //response.Item = PersonalityResult;
             return Request.CreateResponse(PersonalityResult);
         }
 
