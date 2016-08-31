@@ -48,10 +48,8 @@
         </div>
     </div>
     <br />
-    @*<div class="container">
-            <img src="http://cdn2.business2community.com/wp-content/uploads/2011/08/twitter-icon-sketch.jpg" alt="twitter" style="width:200px;height:200px;" />
-        </div>*@
     <div class="row model_personality" id="personality-template" style="margin-top:50px;">
+
         <div class="tname col-xs-6 col-md-2 text-right">
             <span ng-if="results.personality.children"><strong>Name</strong></span>
             <div data-ng-repeat="personality in results.personality.children[0].children[0].children">
@@ -74,21 +72,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-
-
-    <script src="~/scripts/sabio.js"></script>
     <script src="~/scripts/sabio.service.personality.js"></script>
-    @*<script src="~/scripts/ng/angular.js"></script>*@
-    <script src="~/scripts/sabio.ng.app.js"></script>
-
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="~/scripts/demo.js"></script>
     <script src="~/scripts/personality.js"></script>
     <script src="~/scripts/i18n.js"></script>
-
     <script>
-
-
         sabio.services.personalityFactory = function ($baseService) {
             var aSabioServiceObject = sabio.services.personality;
             var newService = $baseService.merge(true, {}, aSabioServiceObject, $baseService);
@@ -125,16 +114,6 @@
                 url: "/api/files/",
                 acceptedFiles: '.docx,.doc,.csv',
                 addRemoveLinks: true,
-                //success: function (data) {
-                //    vm.notify(function () {
-                //        vm.personality = JSON.parse(data.xhr.response);
-                //        console.log(vm.personality);
-                //        //showVizualization(vm.personality);
-                //    });
-                //    //var res = JSON.parse(data.xhr.responseText);
-                //    //console.log(res.Item);
-                //    //alert(res.Item);
-                //},
                 init: function () {
                     var myDropzone = this;
 
@@ -149,16 +128,14 @@
                     });
 
                     this.on("processing", function (file) {
+                        //vm.notify(function () {
+                        //    vm.personality = null;
+                        //})
+
                         this.options.url = "/api/files/";
                     });
                 }
             };
-
-            render();
-
-            function render() {
-                //vm.$personalityService.sendText("luisriv84", vm.receiveItems);
-            }
 
             function _receiveItems(data) {
                 vm.notify(function () {
@@ -167,31 +144,13 @@
                     console.log(vm.personality);
                     showVizualization(vm.personality);
                 });
-
             }
-
-
-
-
-
-            //  $('#handle').on('click', sabio.page.handlers.checkText);
 
             function _checkText(text) {
                 var model = {
                     Text: JSON.stringify(text)
                 }
                 vm.$personalityService.sendText(model, _receiveItems, _onsendTextError)
-            }
-
-
-            sabio.page.handlers.checkText = function (evt) {
-                evt.preventDefault();
-                var url = $('#twitter').val();
-                sabio.services.personality.sendText(url, vm.receiveItems, sabio.page.onsendTextError)
-            }
-
-            sabio.page.onsendTextSuccess = function (data) {
-                console.log(data);
             }
 
             _onsendTextError = function (jqXhr, error) {
