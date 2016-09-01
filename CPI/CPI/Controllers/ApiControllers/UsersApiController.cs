@@ -190,7 +190,7 @@ namespace CPI.ApiControllers
                     request.Email = register.Email;
                     request.Token = tokensAddRequest.TokenId;
 
-                    //Task t = MessagingService.SendConfirmationEmail(request);
+                    Task t = MessagingService.SendConfirmationEmail(request);
                 }
                 else
                 {
@@ -284,13 +284,14 @@ namespace CPI.ApiControllers
 
             // Attempt to set AspNetUsers.EmailConfirmed value = true and insert
             // new record in Users table
-            bool confirmSuccess = true;//UserDataService.ConfirmEmail(tokenId);
+            bool confirmSuccess = UserDataService.ConfirmEmail(tokenId);
             if (!confirmSuccess)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to confirm registration.");
             }
             return Request.CreateResponse(new SucessResponse());
         }
+
 
         [Route("SendEmail"), HttpPost]
         public HttpResponseMessage AddEmail(ForgotPasswordRequest model)

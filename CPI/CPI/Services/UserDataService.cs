@@ -272,38 +272,38 @@ namespace CPI.Services
         //    return list;
         //}
 
-        //public bool ConfirmEmail(Guid tokenId)
-        //{
-        //    bool result = false;
-        //    Token token = UserTokensService.Get(tokenId);
+        public static bool ConfirmEmail(Guid tokenId)
+        {
+            bool result = false;
+            Token token = UserTokensService.Get(tokenId);
 
-        //    ApplicationUserManager userManager = UserService.GetUserManager();
-        //    ApplicationUser user = userManager.FindByName(token.UserName);
-        //    if (user != null)
-        //    {
-        //        // Set the EmailConfirmed flag in AspNetUsers table
-        //        DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUsers_UpdateEmailConfirmed"
-        //           , inputParamMapper: delegate (SqlParameterCollection UpdateEmailConfirmed)
-        //           {
-        //               UpdateEmailConfirmed.AddWithValue("@EmailConfirmed", true);
-        //               UpdateEmailConfirmed.AddWithValue("@UserName", token.UserName);
-        //           });
+            ApplicationUserManager userManager = UserService.GetUserManager();
+            ApplicationUser user = userManager.FindByName(token.UserName);
+            if (user != null)
+            {
+                // Set the EmailConfirmed flag in AspNetUsers table
+                DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUsers_UpdateEmailConfirmed"
+                   , inputParamMapper: delegate (SqlParameterCollection UpdateEmailConfirmed)
+                   {
+                       UpdateEmailConfirmed.AddWithValue("@EmailConfirmed", true);
+                       UpdateEmailConfirmed.AddWithValue("@UserName", token.UserName);
+                   });
 
-        //        // Insert new record in Users table
-        //        ApplicationUser au = UserService.GetUserbyUserName(token.UserName);
-        //        UserInfoAddRequest req = new UserInfoAddRequest();
-        //        req.UserName = token.UserName;
-        //        req.Phone = au.PhoneNumber;
-        //        req.Email = au.Email;
+                // Insert new record in Users table
+                //ApplicationUser au = UserService.GetUserbyUserName(token.UserName);
+                //UserInfoAddRequest req = new UserInfoAddRequest();
+                //req.UserName = token.UserName;
+                //req.Phone = au.PhoneNumber;
+                //req.Email = au.Email;
 
-        //        Insert(req, au.Id);
+                //Insert(req, au.Id);
 
-        //        // Delete the token from UserTokens table
-        //        UserTokensService.Delete(tokenId);
-        //        result = true;
-        //    }
-        //    return result;
-        //}
+                // Delete the token from UserTokens table
+                UserTokensService.Delete(tokenId);
+                result = true;
+            }
+            return result;
+        }
 
         //public List<UserInfo> GetOnboardedStudents()
         //{

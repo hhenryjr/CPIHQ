@@ -218,6 +218,7 @@
     <Compile Include="Controllers\ApiControllers\InputApiController.cs" />
     <Compile Include="Controllers\ApiControllers\MessageApiController.cs" />
     <Compile Include="Controllers\ApiControllers\PersonalityApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\SiteConfigApiController.cs" />
     <Compile Include="Controllers\ApiControllers\TwitterApi.cs" />
     <Compile Include="Controllers\ApiControllers\UsersApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -2086,7 +2087,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Template\ConfirmEmail.html" />
     <Content Include="Template\ForgotPasswordConfirmEmail.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
