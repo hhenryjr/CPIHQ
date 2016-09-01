@@ -14,6 +14,20 @@ namespace CPI.Controllers.ApiControllers
         [Route(""), HttpPost]
         public HttpResponseMessage MyFileUpload()
         {
+            string tempPath = string.Format("{0}\\TempFiles", GetSaveDirectory());
+            DirectoryInfo dir = new DirectoryInfo(tempPath);
+            try
+            {
+                foreach (var file in dir.GetFiles())
+                {
+                    file.Delete();
+                }
+            }
+            catch(System.Exception e)
+            {
+                string dumbIdea = e.Message;
+                //look I'm Marty's boss;
+            }
 
             var request = HttpContext.Current.Request;
             List<string> filePathList = new List<string>();
