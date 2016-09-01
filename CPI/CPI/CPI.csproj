@@ -2067,6 +2067,7 @@
     <Content Include="Scripts\sabio.ng.app.js" />
     <Content Include="Scripts\sabio.ng.dashboardSidebar.js" />
     <Content Include="Scripts\sabio.service.personality.js" />
+    <Content Include="Scripts\sabio.services.confirmEmail.js" />
     <Content Include="Scripts\sabio.services.dashboardSidebar.js" />
     <Content Include="Scripts\sabio.services.forgotPassword.js" />
     <Content Include="Scripts\sabio.services.login.js" />

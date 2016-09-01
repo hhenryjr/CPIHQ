@@ -143,7 +143,7 @@
                 "hideMethod": "fadeOut"
             };
 
-            window.location.assign("http://corbulo.biz");
+            window.location.assign(location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '')+"/home/index");
         }
 
         sabio.page.onConfirmEmailError = function (jqXHR, textStatus, errorThrown) {
