@@ -28,7 +28,7 @@ namespace CPI.Controllers.ApiControllers
                 {
                     string content = ParseService.ParseFileExtractor(serverPath);
                     PersonalityResult = PersonalityService.GetPersonality(content);
-                    
+                     
                     //File.Delete(serverPath);
                 }
             }
@@ -37,8 +37,7 @@ namespace CPI.Controllers.ApiControllers
             //{
             //    File.Delete(path);
             //}
-            ItemResponse<string> response = new ItemResponse<string>();
-            response.Item = "Uploaded Successfully";//FileUploadService.UploadResult();
+
             return Request.CreateResponse(PersonalityResult);
         }
 

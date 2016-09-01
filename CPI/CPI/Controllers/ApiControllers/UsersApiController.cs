@@ -132,7 +132,7 @@ namespace CPI.ApiControllers
 
             if (user != null)
             {
-                Boolean emailConfirmed = true;//UserService.GetEmailConfirmed(model.UserName);
+                Boolean emailConfirmed = UserService.GetEmailConfirmed(model.UserName);
 
                 if (emailConfirmed)
                 {

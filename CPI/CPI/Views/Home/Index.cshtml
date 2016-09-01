@@ -30,91 +30,54 @@
         <form class="form-signin">
             <h2 class="form-signin-heading">Cognitive Personality Insight</h2>
             <label class="sr-only" for="inputEmail"></label>
-            <textarea rows="4" cols="50"></textarea>
+            <textarea rows="4" cols="50" ng-model="results.Text"></textarea>
             <br />
-            <button id="handle" class="btn btn-info" ng-click="results.sendHandle()">CHECK</button>
+            <button id="handle" class="btn btn-info" ng-click="results.checkText(results.Text)">CHECK</button>
         </form>
         <br />
-
         <div class="block">
             <span>Upload File</span>
-            <form action="{{'/api/files/'}}" method="post"
-                  enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
-                  ng-dropzone dropzone="info.dropzone" dropzone-config="info.dropzoneConfig">
+            <form class="dropzone" method="post" action="{{'/api/files/'}}"
+                  enctype="multipart/form-data" id="dropzoneForm"
+                  ng-dropzone dropzone="results.dropzone" dropzone-config="results.dropzoneConfig">
                 <div class="fallback">
                     <input type="file" name="file" multiple />
                     <input type="submit" value="Upload" />
                 </div>
             </form>
         </div>
-
-
-
     </div>
     <br />
-    @*<div class="container">
-            <img src="http://cdn2.business2community.com/wp-content/uploads/2011/08/twitter-icon-sketch.jpg" alt="twitter" style="width:200px;height:200px;" />
-        </div>*@
-
-
-
-
-
-
-
     <div class="row model_personality" id="personality-template" style="margin-top:50px;">
+
         <div class="tname col-xs-6 col-md-2 text-right">
             <span ng-if="results.personality.children"><strong>Name</strong></span>
-
             <div data-ng-repeat="personality in results.personality.children[0].children[0].children">
                 <span>{{personality.name}}</span>
             </div>
-
-
         </div>
-
-
-
-
         <div class="tvalue col-xs-6 col-md-1">
             <span ng-if="results.personality.children"><strong>Value</strong></span>
 
             <div data-ng-repeat="personality in results.personality.children[0].children[0].children">
                 <span>{{personality.percentage * 100 | number:0}}%</span>
             </div>
-
-
-
         </div>
-
-
-
         <div class="col-xs-12 col-md-9">
             <div id="vizcontainer" class="well"></div>
         </div>
-
-
     </div>
 </div>
 @section Scripts{
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-
-
-    <script src="~/scripts/sabio.js"></script>
     <script src="~/scripts/sabio.service.personality.js"></script>
-    @*<script src="~/scripts/ng/angular.js"></script>*@
-    <script src="~/scripts/sabio.ng.app.js"></script>
-
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="~/scripts/demo.js"></script>
     <script src="~/scripts/personality.js"></script>
     <script src="~/scripts/i18n.js"></script>
-
     <script>
-
-
         sabio.services.personalityFactory = function ($baseService) {
             var aSabioServiceObject = sabio.services.personality;
             var newService = $baseService.merge(true, {}, aSabioServiceObject, $baseService);
@@ -131,108 +94,68 @@
             $scope  //  these three arguments are dependencies which are specified below and passed into the controller by ng
             , $baseController
             , $personalityService) {
-            console.log("test");
+
             var vm = this;
 
             $baseController.merge(vm, $baseController);
             //  these properties will be used by the html directives to display data and let the user interact with data
-            //vm.items = null;
-            //vm.selectedEmployee = null;
 
             //  save a reference to our service class so we can call it later on
             vm.$personalityService = $personalityService;
             vm.$scope = $scope;
+            vm.notify = vm.$personalityService.getNotifier($scope);
 
             vm.receiveItems = _receiveItems;
             vm.personality = {};
-            vm.test = "test";
-            vm.sendHandle = _sendHandle;
+            vm.checkText = _checkText;
             vm.dropzoneConfig = {
                 uploadMultiple: false,
                 maxFileSize: 4,
-                url: "/api/files/supplier/" + vm.supplierId,
-                acceptedFiles: '.xlsx,.xls,.csv',
+                url: "/api/files/",
+                acceptedFiles: '.docx,.doc,.csv',
                 addRemoveLinks: true,
-                accept: function (file, done) {
-                    if (file.size > 4000000)
-                        alert('File size exceeded.  Please contact support@fuelerlinx.com to approve this file.');
-                    else if (file.type == 'application/vnd.ms-excel' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-                        var container = $(file.previewElement).parent();
-                        $(file.previewElement).hide();
-                        done();
-                    } else
-                        alert('That type of file is currently not supported.');
-                },
-                success: function (data) {
-                    var res = JSON.parse(data.xhr.responseText);
-                    console.log(res.Item);
-                    alert(res.Item);
-                },
                 init: function () {
                     var myDropzone = this;
 
                     this.on("success", function (data) {
-                        var res = JSON.parse(data.xhr.responseText);
+                        vm.notify(function () {
+                            var response = JSON.parse(data.xhr.response);
+                            var content = JSON.parse(response.Content);
+                            vm.personality = content.tree;
+                            console.log(vm.personality);
+                            showVizualization(vm.personality);
+                        })
                     });
 
                     this.on("processing", function (file) {
-                        this.options.url = "/api/files/supplier/" + vm.supplierId;
+                        //vm.notify(function () {
+                        //    vm.personality = null;
+                        //})
+
+                        this.options.url = "/api/files/";
                     });
                 }
             };
 
-            vm.notify = vm.$personalityService.getNotifier($scope);
-
-            render();
-
-            function render() {
-                //vm.$personalityService.sendHandler("luisriv84", vm.receiveItems);
-            }
-
             function _receiveItems(data) {
                 vm.notify(function () {
-                    vm.personality = data.tree;
-                    console.log(data);
-                    showVizualization(data);
+                    var content = JSON.parse(data.Content);
+                    vm.personality = content.tree;
+                    console.log(vm.personality);
+                    showVizualization(vm.personality);
                 });
-
             }
 
-
-
-
-
-            //  $('#handle').on('click', sabio.page.handlers.sendHandle);
-
-            function _sendHandle() {
-                console.log("button clicked");
-                var url = $('#twitter').val();
-                sabio.services.personality.sendHandler(url, vm.receiveItems, sabio.page.onSendHandlerError)
+            function _checkText(text) {
+                var model = {
+                    Text: JSON.stringify(text)
+                }
+                vm.$personalityService.sendText(model, _receiveItems, _onsendTextError)
             }
 
-
-            sabio.page.handlers.sendHandle = function (evt) {
-                evt.preventDefault();
-                var url = $('#twitter').val();
-                sabio.services.personality.sendHandler(url, vm.receiveItems, sabio.page.onSendHandlerError)
-            }
-
-            sabio.page.onSendHandlerSuccess = function (data) {
-
-                console.log(data);
-
-            }
-
-            sabio.page.onSendHandlerError = function (jqXhr, error) {
-
+            _onsendTextError = function (jqXhr, error) {
                 console.log(error);
-
             }
-
-
-
-
-
         }
 
         sabio.ng.addController(sabio.ng.app.module

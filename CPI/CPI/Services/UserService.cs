@@ -98,28 +98,28 @@ namespace CPI.Services
         //    return result;
         //}
 
-        //public static bool GetEmailConfirmed(string UserName)
-        //{
-        //    bool result = false;
+        public static bool GetEmailConfirmed(string UserName)
+        {
+            bool result = false;
 
-        //    DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUsers_GetEmailConfirmedV2"
-        //       , inputParamMapper: delegate (SqlParameterCollection paramCollection)
-        //       {
-        //           paramCollection.AddWithValue("@UserName", UserName);
+            DataProvider.ExecuteNonQuery(GetConnection, "dbo.AspNetUsers_GetEmailConfirmed"
+               , inputParamMapper: delegate (SqlParameterCollection paramCollection)
+               {
+                   paramCollection.AddWithValue("@UserName", UserName);
 
-        //           //model binding
-        //           SqlParameter p = new SqlParameter("@EmailConfirmed", System.Data.SqlDbType.Bit);
-        //           p.Direction = System.Data.ParameterDirection.Output;
+                   //model binding
+                   SqlParameter p = new SqlParameter("@EmailConfirmed", System.Data.SqlDbType.Bit);
+                   p.Direction = System.Data.ParameterDirection.Output;
 
-        //           paramCollection.Add(p);
+                   paramCollection.Add(p);
 
-        //       }, returnParameters: delegate (SqlParameterCollection param)
-        //        {
-        //            result = (bool)param["@EmailConfirmed"].Value;
-        //        }
-        //       );
-        //    return result;
-        //}
+               }, returnParameters: delegate (SqlParameterCollection param)
+                {
+                    result = (bool)param["@EmailConfirmed"].Value;
+                }
+               );
+            return result;
+        }
 
         public static ApplicationUser GetUser(string username)
         {
