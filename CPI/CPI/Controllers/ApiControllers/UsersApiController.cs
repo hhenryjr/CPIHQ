@@ -320,7 +320,7 @@ namespace CPI.ApiControllers
                 request.Email = user.Email;
                 request.Token = tokenId;
 
-                //Task t = MessagingService.SendForgotPasswordEmail(request); //calling it to run
+                Task t = MessagingService.SendForgotPasswordEmail(request); //calling it to run
             }
             else
             {

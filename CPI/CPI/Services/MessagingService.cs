@@ -50,14 +50,12 @@ namespace CPI.Services
 
             myMessage.AddTo(model.Email);
             myMessage.From = new MailAddress(_siteAdminEmailAddress, "CPI Team");
-
             myMessage.Subject = "Please Confirm Email";
 
             string path = HttpContext.Current.Server.MapPath("~/Template/ConfirmEmail.html");
             string contents = File.ReadAllText(path);
 
             contents = contents.Replace("{{domain}}", "http://" + BaseURL + "/confirm/" + model.Token);
-
             contents = contents.Replace("<%body%>", "Please Confirm Email");
 
             myMessage.Html = contents;
@@ -67,26 +65,25 @@ namespace CPI.Services
         }
 
         //****ADDED**** 
-        //public static async Task SendForgotPasswordEmail(SendConfirmationEmailRequest model)
-        //{
-        //    SendGridMessage userEmailMessage = new SendGridMessage();
+        public static async Task SendForgotPasswordEmail(SendConfirmationEmailRequest model)
+        {
+            var BaseURL = HttpContext.Current.Request.Url.Authority.ToString();
+            SendGridMessage userEmailMessage = new SendGridMessage();
 
-        //    userEmailMessage.AddTo(model.Email); //supplies the email into tokenMessage, so tokenMessage can be sent to the user
-        //    userEmailMessage.From = new MailAddress(_siteAdminEmailAddress, "Sabio Team");   //supplies from where it been sent into message
+            userEmailMessage.AddTo(model.Email); //supplies the email into tokenMessage, so tokenMessage can be sent to the user
+            userEmailMessage.From = new MailAddress(_siteAdminEmailAddress, "CPI Team");   //supplies from where it been sent into message
+            userEmailMessage.Subject = "Please confirm reset password";                     //supplies subject into message
 
-        //    userEmailMessage.Subject = "Please confirm reset password";                     //supplies subject into message
+            string path = HttpContext.Current.Server.MapPath("~/Template/ForgotPasswordConfirmEmail.html"); //goes finds the ForgotPasswordConfirmEmail template
+            string contents = File.ReadAllText(path); //reads it 
 
-        //    string path = HttpContext.Current.Server.MapPath("~/Template/ForgotPasswordConfirmEmail.html"); //goes finds the ForgotPasswordConfirmEmail template
-        //    string contents = File.ReadAllText(path); //reads it 
+            contents = contents.Replace("{{domain}}", "http://" + BaseURL + "/confirm/" + model.Token);
+            contents = contents.Replace("<%body%>", "Please confirm reset password");
 
-        //    contents = contents.Replace("{{domain}}", "http://corbulo.biz/ResetPassword/" + model.Token); //places the content to where the token is grabbed in 3
+            userEmailMessage.Html = contents;
 
-        //    contents = contents.Replace("<%body%>", "Please confirm reset password");
-
-        //    userEmailMessage.Html = contents;
-
-        //    await SendAsync(userEmailMessage); //syncs userEmailMessage
-        //}
+            await SendAsync(userEmailMessage); //syncs userEmailMessage
+        }
 
         private static async Task SendAsync(ISendGrid message)
         {
