@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_simpleLayout.cshtml";
 }
 
-<link href="http://lms.dev/Content/toastr.css" rel="stylesheet" />
+@*<link href="http://lms.dev/Content/toastr.css" rel="stylesheet" />*@
 <img id="picture" ng-src="" alt="Login Full Background" class="full-bg animation-pulseSlow">
 <!-- Login Full Background -->
 <!-- For best results use an image with a resolution of 1280x1280 pixels (prefer a blurred image for smaller file size) -->
@@ -119,7 +119,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
-                        <small>Do you have an account?</small> <a href="http://localhost:59775/login" id="link-register"><small>Login</small></a>
+                        <small>Do you have an account?</small> <a href="/login" id="link-register"><small>Login</small></a>
                     </div>
                 </div>
             </form>
@@ -222,8 +222,8 @@
             vm.onRegisterForm = _onRegisterForm;
             vm.onRegisterSuccess = _onRegisterSuccess;
             vm.onRegisterError = _onRegisterError;
-            vm.onGetTokenSuccess = _onGetTokenSuccess;
-            vm.onGetTokenError = _onGetTokenError;
+            //vm.onGetTokenSuccess = _onGetTokenSuccess;
+            //vm.onGetTokenError = _onGetTokenError;
             //vm.onSendConfirmEmailSuccess = _onSendConfirmEmailSuccess;
             //vm.onSendConfirmEmailError = _onSendConfirmEmailError;
 
@@ -298,10 +298,10 @@
                 alert(vm.dataSuccess);
                 //vm.$alertService.onSuccess(vm.dataSuccess);
 
-                var registerToken = 1;
-                var form = vm.newUser;
-                var newTokenData = form + "&tokenType=" + registerToken;
-                vm.$userTokensService.add(newTokenData, vm.onGetTokenSuccess, vm.onGetTokenError);
+                //var registerToken = 1;
+                //var form = vm.newUser;
+                //var newTokenData = form + "&tokenType=" + registerToken;
+                //vm.$userTokensService.add(newTokenData, vm.onGetTokenSuccess, vm.onGetTokenError);
             }
 
             function _onRegisterError(jqXHR, textStatus, errorThrown) {
@@ -310,31 +310,31 @@
                 //vm.$alertService.onError(jqXHR.responseJSON.errors[0]);
             }
 
-            function _onGetTokenSuccess(data, status, xhr) {
-                var form = $("#registrationForm");
-                var registrationData = $(form).serialize();
-                var token = data.item;
-                var registrationDataWithToken = registrationData + "&token=" + token;
-                vm.$messagingService.sendConfirmEmail(registrationDataWithToken, vm.onSendConfirmEmailSuccess, vm.onSendConfirmEmailError);
-            }
+            //function _onGetTokenSuccess(data, status, xhr) {
+            //    var form = $("#registrationForm");
+            //    var registrationData = $(form).serialize();
+            //    var token = data.item;
+            //    var registrationDataWithToken = registrationData + "&token=" + token;
+            //    vm.$messagingService.sendConfirmEmail(registrationDataWithToken, vm.onSendConfirmEmailSuccess, vm.onSendConfirmEmailError);
+            //}
 
-            function _onGetTokenError(jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseJSON.Errors[0]);
-                alert(jqXHR.responseJSON.Errors[0]);
-                //vm.$alertService.onError(jqXHR.responseJSON.errors[0]);
-            }
+            //function _onGetTokenError(jqXHR, textStatus, errorThrown) {
+            //    console.log(jqXHR.responseJSON.Errors[0]);
+            //    alert(jqXHR.responseJSON.Errors[0]);
+            //    //vm.$alertService.onError(jqXHR.responseJSON.errors[0]);
+            //}
 
-            function _onSendConfirmEmailSuccess() {
-                vm.success = "Confirmation Email Sent";
-                alert(vm.success);
-                //vm.$alertService.onSuccess(vm.success);
-            }
+            //function _onSendConfirmEmailSuccess() {
+            //    vm.success = "Confirmation Email Sent";
+            //    alert(vm.success);
+            //    //vm.$alertService.onSuccess(vm.success);
+            //}
 
-            function _onSendConfirmEmailError() {
-                //vm.$alertService.onError(jqXHR.responseJSON.errors);
-                console.log(jqXHR.responseJSON.errors[0]);
-                alert("Confirmation Email failed to send");
-            }
+            //function _onSendConfirmEmailError() {
+            //    //vm.$alertService.onError(jqXHR.responseJSON.errors);
+            //    console.log(jqXHR.responseJSON.errors[0]);
+            //    alert("Confirmation Email failed to send");
+            //}
 
         }
 
