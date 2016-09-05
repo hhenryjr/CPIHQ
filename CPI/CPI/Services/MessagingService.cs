@@ -77,7 +77,7 @@ namespace CPI.Services
             string path = HttpContext.Current.Server.MapPath("~/Template/ForgotPasswordConfirmEmail.html"); //goes finds the ForgotPasswordConfirmEmail template
             string contents = File.ReadAllText(path); //reads it 
 
-            contents = contents.Replace("{{domain}}", "http://" + BaseURL + "/confirm/" + model.Token);
+            contents = contents.Replace("{{domain}}", "http://" + BaseURL + "/ResetPassword/" + model.Token);
             contents = contents.Replace("<%body%>", "Please confirm reset password");
 
             userEmailMessage.Html = contents;
