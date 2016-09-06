@@ -47,6 +47,14 @@ namespace CPI.Classes
             get { return GetFromConfig("SiteAdminEmailAddress"); }
         }
 
+        public static string SendGridUser {
+            get { return GetFromConfig("SendGridUser"); }
+        }
+
+        public static string SendGridPass {
+            get { return GetFromConfig("SendGridPass"); }
+        }
+
         //public string AwsAccessKey
         //{
         //    get { return GetFromConfig("AWSAccessKey"); }

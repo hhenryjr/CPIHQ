@@ -16,6 +16,8 @@ namespace CPI.Services
     public class MessagingService : BaseService
     {
         private static readonly string _siteAdminEmailAddress = ConfigurationManager.AppSettings["SiteAdminEmailAddress"];
+        private static readonly string _sendGridUser = ConfigurationManager.AppSettings["SendGridUser"];
+        private static readonly string _sendGridPass = ConfigurationManager.AppSettings["SendGridPass"];
 
         //public async Task Mail(MailRequest model)
         //{
@@ -87,7 +89,7 @@ namespace CPI.Services
 
         private static async Task SendAsync(ISendGrid message)
         {
-            var credentials = new NetworkCredential("neil0609", "cpipass1!");
+            var credentials = new NetworkCredential(_sendGridUser, _sendGridPass);
 
             var trasportToWeb = new SendGrid.Web(credentials);
 

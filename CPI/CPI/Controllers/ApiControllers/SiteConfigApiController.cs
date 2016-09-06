@@ -55,5 +55,19 @@ namespace CPI.Controllers.ApiControllers
             string key = SiteConfig.SiteAdminEmailAddress;
             return key;
         }
+
+       [Route("SendGridUser"), HttpGet]
+       public static string GetSendGridUser() {
+           string key = SiteConfig.SendGridUser;
+           return key;
+       }
+
+       [Route("SendGridPass"), HttpGet]
+       public static string GetSendGridPass() {
+           string key = SiteConfig.SendGridPass;
+           return key;
+       }
+
+
     }
 }
