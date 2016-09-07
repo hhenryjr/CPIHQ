@@ -68,6 +68,18 @@ namespace CPI.Controllers.ApiControllers
            return key;
        }
 
+       [Route("PersonalityUser"), HttpGet]
+       public static string GetPersonalityUser() {
+           string key = SiteConfig.PersonalityUser;
+           return key;
+       }
+
+       [Route("PersonalityPass"), HttpGet]
+       public static string GetPersonalityPass() {
+           string key = SiteConfig.PersonalityPass;
+           return key;
+       }
+
 
     }
 }

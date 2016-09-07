@@ -1233,6 +1233,8 @@
     <Content Include="Scripts\dropzone\dropzone.min.css" />
     <Content Include="Scripts\dropzone\dropzone.min.js" />
     <Content Include="Scripts\errors.json" />
+    <Content Include="HiddenConfig.config" />
+    <Content Include="HiddenSettings.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap3-editable\css\bootstrap-editable.css" />
     <Content Include="Scripts\bootstrap3-editable\img\clear.png" />

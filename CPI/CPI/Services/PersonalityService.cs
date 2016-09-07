@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -11,14 +12,14 @@ namespace CPI.Services
 {
     public class PersonalityService
     {
+        private static readonly string _personalityUser = ConfigurationManager.AppSettings["PersonalityUser"];
+        private static readonly string _personalityPass = ConfigurationManager.AppSettings["PersonalityPass"];
 
         public static ContentResult GetPersonality()
         {
          var basePath = "https://gateway.watsonplatform.net/personality-insights/api/v2/profile";
-
-           var username = "4a322a2e-8e82-4cf9-bb71-2c159e3d91c4";
-            var password = "QmJkUfzKKnbL";
-            string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", username, password)));
+            
+            string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", _personalityUser, _personalityPass)));
 
             var client = new HttpClient();
 
@@ -27,7 +28,7 @@ namespace CPI.Services
                     "Basic",
                     Convert.ToBase64String(
                         System.Text.ASCIIEncoding.ASCII.GetBytes(
-                              string.Format("{0}:{1}", username, password))));
+                              string.Format("{0}:{1}", _personalityUser, _personalityPass))));
             
             // I HARDCODED THE INPUT TEXT. INPUT WILL EVENTUALLY COME FROM TWITTER API
 
@@ -63,9 +64,7 @@ namespace CPI.Services
         {
          var basePath = "https://gateway.watsonplatform.net/personality-insights/api/v2/profile";
 
-           var username = "4a322a2e-8e82-4cf9-bb71-2c159e3d91c4";
-            var password = "QmJkUfzKKnbL";
-            string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", username, password)));
+            string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", _personalityUser, _personalityPass)));
 
             var client = new HttpClient();
 
@@ -74,7 +73,7 @@ namespace CPI.Services
                     "Basic",
                     Convert.ToBase64String(
                         System.Text.ASCIIEncoding.ASCII.GetBytes(
-                              string.Format("{0}:{1}", username, password))));
+                              string.Format("{0}:{1}", _personalityUser, _personalityPass))));
 
             // I HARDCODED THE INPUT TEXT. INPUT WILL EVENTUALLY COME FROM TWITTER API
 
