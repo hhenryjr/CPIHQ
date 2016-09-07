@@ -98,9 +98,7 @@
             var vm = this;
 
             $baseController.merge(vm, $baseController);
-            //  these properties will be used by the html directives to display data and let the user interact with data
 
-            //  save a reference to our service class so we can call it later on
             vm.$personalityService = $personalityService;
             vm.$scope = $scope;
             vm.notify = vm.$personalityService.getNotifier($scope);
@@ -120,18 +118,17 @@
                     this.on("success", function (data) {
                         vm.notify(function () {
                             var response = JSON.parse(data.xhr.response);
-                            var content = JSON.parse(response.Content);
-                            vm.personality = content.tree;
-                            console.log(vm.personality);
-                            showVizualization(vm.personality);
+                            if (response.Content) {
+                                var content = JSON.parse(response.Content);
+                                vm.personality = content.tree;
+                                console.log(vm.personality);
+                                showVizualization(vm.personality);
+                            }
+                            else alert(response);
                         })
                     });
 
                     this.on("processing", function (file) {
-                        //vm.notify(function () {
-                        //    vm.personality = null;
-                        //})
-
                         this.options.url = "/api/files/";
                     });
                 }

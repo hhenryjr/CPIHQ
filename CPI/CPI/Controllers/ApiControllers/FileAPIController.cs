@@ -26,6 +26,7 @@ namespace CPI.Controllers.ApiControllers
             catch(System.Exception e)
             {
                 string dumbIdea = e.Message;
+                return Request.CreateResponse(dumbIdea);
                 //look I'm Marty's boss;
             }
 
@@ -65,11 +66,7 @@ namespace CPI.Controllers.ApiControllers
                 string savePath = string.Format("{0}\\TempFiles\\{1}", GetSaveDirectory(), file.FileName);
 
                 file.SaveAs(savePath);
-                finalPath = savePath;
-                //SessionHelper.Instance.MostRecentlyUploadedFilePath = savePath;
-                //FuelSheetHandler handler = new FuelSheetHandler();
-                //handler.Process(savePath, Users.CurrentUser.ClientID, supplierId);
-                
+                finalPath = savePath;                
             }
             catch (System.Exception exception)
             {
